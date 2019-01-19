@@ -2,13 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import getByVisibility from '../redux/selectors';
 import Todo from './Todo';
+import { List } from 'antd';
 
 const TodoList = ({ todos }) => (
-  <ul>
+  <List>
     {todos.map(todo => (
-      <Todo key={todo.id} todo={todo} />
+      <List.Item key={todo.id}>
+        <Todo todo={todo} />
+      </List.Item>
     ))}
-  </ul>
+  </List>
 );
 
 const mapStateToProps = state => {

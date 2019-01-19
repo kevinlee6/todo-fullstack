@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import Header from './components/Header';
 import TodoListContainer from './components/TodoListContainer';
+import { Layout } from 'antd';
+
+const { Header, Content, Footer } = Layout;
 
 class App extends Component {
   render() {
     return (
       <div className="App">
         <Header />
-        <TodoListContainer />
+        <Content>
+          <TodoListContainer />
+        </Content>
       </div>
     );
   }
