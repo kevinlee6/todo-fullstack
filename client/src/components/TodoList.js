@@ -8,9 +8,7 @@ const TodoList = ({ todos }) =>
   todos && todos.length ? (
     <List>
       {todos.map(todo => (
-        <List.Item key={todo.id}>
-          <Todo todo={todo} />
-        </List.Item>
+        <Todo key={todo.id} todo={todo} />
       ))}
     </List>
   ) : (
