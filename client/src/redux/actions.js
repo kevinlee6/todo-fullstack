@@ -4,6 +4,7 @@ import {
   EDIT_TODO,
   TOGGLE_TODO,
   SET_FILTER,
+  TOGGLE_MODAL,
 } from './actionTypes';
 
 let nextTodoId = 0;
@@ -38,5 +39,13 @@ export const setFilter = filter => ({
   type: SET_FILTER,
   payload: {
     filter,
+  },
+});
+
+export const toggleModal = (command = null, todo = null) => ({
+  type: TOGGLE_MODAL,
+  payload: {
+    command,
+    todo,
   },
 });

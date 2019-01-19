@@ -1,16 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { deleteTodo } from '../redux/actions';
+import { toggleModal } from '../redux/actions';
+import { COMMANDS } from '../constants';
 import { Icon } from 'antd';
 
-const Options = ({ deleteTodo, todo }) => (
+const { DELETE, EDIT } = COMMANDS;
+
+const Options = ({ toggleModal, todo }) => (
   <div>
-    <Icon type="edit" />
-    <Icon type="minus-circle" onClick={() => deleteTodo(todo.id)} />
+    <Icon type="edit" onClick={() => toggleModal(EDIT, todo)} />
+    <Icon
+      style={{ color: 'red' }}
+      type="minus-circle"
+      onClick={() => toggleModal(DELETE, todo)}
+    />
   </div>
 );
 
 export default connect(
   null,
-  { deleteTodo }
+  { toggleModal }
 )(Options);
