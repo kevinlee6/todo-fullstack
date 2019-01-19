@@ -8,6 +8,7 @@ const { FILTER_ALL, FILTER_COMPLETED, FILTER_INCOMPLETE } = VISIBILITY_FILTERS;
 
 const VisibilityFilters = ({ setFilter }) => (
   <Radio.Group
+    style={{ margin: '10px 0' }}
     defaultValue={FILTER_ALL}
     onChange={e => setFilter(e.target.value)}
   >
