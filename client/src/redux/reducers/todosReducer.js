@@ -7,14 +7,16 @@ const initialState = {
 
 export default (state = initialState, action) => {
   const payload = action.payload;
+  const allIds = state.allIds;
+  const byIds = state.byIds;
   switch (action.type) {
     case ADD_TODO: {
       const { id, content } = payload;
       return {
         ...state,
-        allIds: [...state.allIds, id],
+        allIds: [...allIds, id],
         byIds: {
-          ...state.byIds,
+          ...byIds,
           [id]: {
             content,
             completed: false,
@@ -24,12 +26,12 @@ export default (state = initialState, action) => {
     }
     case DELETE_TODO: {
       const { id } = payload;
-      const byIds = { ...state.byIds };
-      delete byIds[id];
+      const newByIds = { ...byIds };
+      delete newByIds[id];
       return {
         ...state,
-        allIds: state.allIds.filter(el => el !== id),
-        byIds,
+        allIds: allIds.filter(el => el !== id),
+        byIds: newByIds,
       };
     }
     case EDIT_TODO: {
@@ -37,9 +39,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         byIds: {
-          ...state.byIds,
+          ...byIds,
           [id]: {
-            ...state.byIds[id],
+            ...byIds[id],
             content,
           },
         },
@@ -47,11 +49,11 @@ export default (state = initialState, action) => {
     }
     case TOGGLE_TODO: {
       const { id } = payload;
-      const todo = state.byIds[id];
+      const todo = byIds[id];
       return {
         ...state,
         byIds: {
-          ...state.byIds,
+          ...byIds,
           [id]: {
             ...todo,
             completed: !todo.completed,
