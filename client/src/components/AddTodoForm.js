@@ -25,7 +25,11 @@ class AddTodoForm extends Component {
   render() {
     return (
       <form onSubmit={e => this.handleSubmit(e)}>
-        <input onChange={e => this.handleChange(e)} type="text" />
+        <input
+          value={this.state.userInput}
+          onChange={e => this.handleChange(e)}
+          type="text"
+        />
         <button>Add todo</button>
       </form>
     );
