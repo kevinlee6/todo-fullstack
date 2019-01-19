@@ -10,9 +10,10 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-        <Content>
+        <Content style={{ padding: '50px' }}>
           <TodoListContainer />
         </Content>
+        <Footer />
       </div>
     );
   }
