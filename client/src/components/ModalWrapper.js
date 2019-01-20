@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { toggleModal, editTodo, deleteTodo } from '../redux/actions';
 import { COMMANDS } from '../constants';
@@ -51,6 +51,26 @@ class ModalWrapper extends Component {
     this.setState({ userInput });
   };
 
+  renderBody = (command, todo) => {
+    switch (command) {
+      case DELETE: {
+        return <p>Todo to delete: {todo.content}</p>;
+      }
+      case EDIT: {
+        return (
+          <Input
+            autoFocus
+            value={this.state.userInput}
+            onChange={e => this.handleChange(e)}
+          />
+        );
+      }
+      default: {
+        return <p>Unknown command.</p>;
+      }
+    }
+  };
+
   render() {
     const { command, todo, visible } = this.props;
     return (
@@ -60,10 +80,7 @@ class ModalWrapper extends Component {
         onOk={() => this.handleOk(command, todo)}
         onCancel={this.handleCancel}
       >
-        <Input
-          value={this.state.userInput}
-          onChange={e => this.handleChange(e)}
-        />
+        {this.renderBody(command, todo)}
         Are you sure you want to {command.toLowerCase()} the todo?
       </Modal>
     );
