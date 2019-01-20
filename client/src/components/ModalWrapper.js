@@ -2,7 +2,8 @@ import React, { Component, createRef } from 'react';
 import { connect } from 'react-redux';
 import { toggleModal, editTodo, deleteTodo } from '../redux/actions';
 import { COMMANDS } from '../constants';
-import { Modal, Input } from 'antd';
+import { Modal, Input, Button } from 'antd';
+import modalFooter from '../hoc/modalFooter';
 
 const { DELETE, EDIT } = COMMANDS;
 
@@ -73,12 +74,14 @@ class ModalWrapper extends Component {
 
   render() {
     const { command, todo, visible } = this.props;
+    const handleOk = () => this.handleOk(command, todo);
     return (
       <Modal
         visible={visible}
         title={`${command.toLowerCase()} todo`}
-        onOk={() => this.handleOk(command, todo)}
+        onOk={handleOk}
         onCancel={this.handleCancel}
+        footer={modalFooter(Button, command, handleOk, this.handleCancel)}
       >
         {this.renderBody(command, todo)}
         Are you sure you want to {command.toLowerCase()} the todo?
