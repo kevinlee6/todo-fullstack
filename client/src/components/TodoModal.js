@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-import { createPortal } from "react-dom";
 import { connect } from "react-redux";
 import { toggleModal, editTodo, deleteTodo } from "../redux/actions";
 import { COMMANDS } from "../constants";
 import { message, Modal, Input, Button } from "antd";
 import modalFooter from "../hoc/modalFooter";
+import { titleCase } from "../helper";
 
 const { DELETE, EDIT } = COMMANDS;
-
-const titleCase = word =>
-  word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase();
 
 class TodoModal extends Component {
   constructor(props) {
@@ -36,6 +33,9 @@ class TodoModal extends Component {
       }
       case EDIT: {
         const userInput = this.state.userInput;
+        if (!userInput.length) {
+          return this.error();
+        }
         editTodo(todo.id, userInput);
         this.setState({ userInput: "" });
         break;
@@ -59,9 +59,12 @@ class TodoModal extends Component {
 
   success = command => {
     if (command) {
-      const lower = command.toLowerCase();
       message.success(`${titleCase(command)} successful.`);
     }
+  };
+
+  error = () => {
+    message.error("Todo cannot be empty.");
   };
 
   renderBody = (command, todo) => {
@@ -76,6 +79,7 @@ class TodoModal extends Component {
             placeholder={`Original: ${todo.content}`}
             value={this.state.userInput}
             onChange={e => this.handleChange(e)}
+            onPressEnter={() => this.handleOk(command, todo)}
           />
         );
       }
