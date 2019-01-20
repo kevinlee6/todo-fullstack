@@ -14,15 +14,24 @@ class ModalWrapper extends Component {
     };
   }
 
+  componentDidMount() {
+    const { todo } = this.props;
+    if (todo) {
+      const userInput = todo.content;
+      this.setState({ userInput });
+    }
+  }
+
   handleOk = (command, todo) => {
+    const { deleteTodo, editTodo, toggleModal } = this.props;
     switch (command) {
       case DELETE: {
-        this.props.deleteTodo(todo.id);
+        deleteTodo(todo.id);
         break;
       }
       case EDIT: {
         const userInput = this.state.userInput;
-        this.props.editTodo(todo.id, userInput);
+        editTodo(todo.id, userInput);
         this.setState({ userInput: '' });
         break;
       }
@@ -30,7 +39,7 @@ class ModalWrapper extends Component {
         break;
       }
     }
-    this.props.toggleModal();
+    toggleModal();
   };
 
   handleCancel = () => {
@@ -43,25 +52,28 @@ class ModalWrapper extends Component {
   };
 
   render() {
-    const { command, todo, visible } = this.props.modal;
-    console.log(command, todo, visible);
-    return visible ? (
+    const { command, todo, visible } = this.props;
+    return (
       <Modal
         visible={visible}
         title={`${command.toLowerCase()} todo`}
         onOk={() => this.handleOk(command, todo)}
         onCancel={this.handleCancel}
       >
-        <Input value={todo.content} onChange={e => this.handleChange(e)} />
+        <Input
+          value={this.state.userInput}
+          onChange={e => this.handleChange(e)}
+        />
         Are you sure you want to {command.toLowerCase()} the todo?
       </Modal>
-    ) : null;
+    );
   }
 }
 
 const mapStateToProps = state => {
   const { modal } = state;
-  return { modal };
+  const { command, todo, visible } = modal;
+  return { command, todo, visible };
 };
 
 export default connect(
