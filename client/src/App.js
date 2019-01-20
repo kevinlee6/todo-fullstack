@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
 import TodoListContainer from './components/TodoListContainer';
-import ModalWrapper from './components/ModalWrapper';
+import TodoModal from './components/TodoModal';
 import { Layout } from 'antd';
 
 const { Header, Content, Footer } = Layout;
@@ -17,7 +17,7 @@ class App extends Component {
           <TodoListContainer />
         </Content>
         <Footer />
-        {visible ? <ModalWrapper /> : null}
+        {visible ? <TodoModal /> : null}
       </div>
     );
   }

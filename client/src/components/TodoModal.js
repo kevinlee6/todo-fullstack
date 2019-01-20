@@ -7,7 +7,7 @@ import modalFooter from '../hoc/modalFooter';
 
 const { DELETE, EDIT } = COMMANDS;
 
-class ModalWrapper extends Component {
+class TodoModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,6 +61,7 @@ class ModalWrapper extends Component {
         return (
           <Input
             autoFocus
+            placeholder={`Original: ${todo.content}`}
             value={this.state.userInput}
             onChange={e => this.handleChange(e)}
           />
@@ -75,16 +76,21 @@ class ModalWrapper extends Component {
   render() {
     const { command, todo, visible } = this.props;
     const handleOk = () => this.handleOk(command, todo);
+    const title = command
+      ? command.slice(0, 1).toUpperCase() +
+        command.slice(1).toLowerCase() +
+        ' Todo'
+      : 'Error: no command';
     return (
       <Modal
         visible={visible}
-        title={`${command.toLowerCase()} todo`}
+        title={title}
         onOk={handleOk}
         onCancel={this.handleCancel}
         footer={modalFooter(Button, command, handleOk, this.handleCancel)}
       >
         {this.renderBody(command, todo)}
-        Are you sure you want to {command.toLowerCase()} the todo?
+        Are you sure you want to {command && command.toLowerCase()} the todo?
       </Modal>
     );
   }
@@ -99,4 +105,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { toggleModal, editTodo, deleteTodo }
-)(ModalWrapper);
+)(TodoModal);
