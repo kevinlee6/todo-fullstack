@@ -1,5 +1,13 @@
+.Todo {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+}
+
 .todo {
   cursor: pointer;
+  word-wrap: break-word;
+  width: 80%;
 }
 
 .todo-completed {

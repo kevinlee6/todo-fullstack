@@ -1,0 +1,10 @@
+.Options {
+  width: 15%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Options > * {
+  cursor: pointer;
+  margin: 0 5px;
+}

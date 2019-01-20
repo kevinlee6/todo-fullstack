@@ -3,12 +3,13 @@ import { connect } from 'react-redux';
 import { VISIBILITY_FILTERS } from '../constants';
 import { setFilter } from '../redux/actions';
 import { Radio } from 'antd';
+import './VisibilityFilters.css';
 
 const { FILTER_ALL, FILTER_COMPLETED, FILTER_INCOMPLETE } = VISIBILITY_FILTERS;
 
 const VisibilityFilters = ({ setFilter }) => (
   <Radio.Group
-    style={{ margin: '10px 0' }}
+    className="VisibilityFilters"
     defaultValue={FILTER_ALL}
     onChange={e => setFilter(e.target.value)}
   >

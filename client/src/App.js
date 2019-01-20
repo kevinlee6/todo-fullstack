@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
+import HeaderTitle from './components/HeaderTitle';
 import TodoListContainer from './components/TodoListContainer';
 import TodoModal from './components/TodoModal';
 import { Layout } from 'antd';
@@ -12,7 +13,9 @@ class App extends Component {
     const { visible } = this.props;
     return (
       <div className="App">
-        <Header />
+        <Header>
+          <HeaderTitle />
+        </Header>
         <Content style={{ padding: '50px' }}>
           <TodoListContainer />
         </Content>
