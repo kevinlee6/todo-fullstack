@@ -1,17 +1,21 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { toggleModal, editTodo, deleteTodo } from '../redux/actions';
-import { COMMANDS } from '../constants';
-import { Modal, Input, Button } from 'antd';
-import modalFooter from '../hoc/modalFooter';
+import React, { Component } from "react";
+import { createPortal } from "react-dom";
+import { connect } from "react-redux";
+import { toggleModal, editTodo, deleteTodo } from "../redux/actions";
+import { COMMANDS } from "../constants";
+import { message, Modal, Input, Button } from "antd";
+import modalFooter from "../hoc/modalFooter";
 
 const { DELETE, EDIT } = COMMANDS;
+
+const titleCase = word =>
+  word.slice(0, 1).toUpperCase() + word.slice(1).toLowerCase();
 
 class TodoModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInput: '',
+      userInput: ""
     };
   }
 
@@ -33,13 +37,14 @@ class TodoModal extends Component {
       case EDIT: {
         const userInput = this.state.userInput;
         editTodo(todo.id, userInput);
-        this.setState({ userInput: '' });
+        this.setState({ userInput: "" });
         break;
       }
       default: {
         break;
       }
     }
+    this.success(command);
     toggleModal();
   };
 
@@ -50,6 +55,13 @@ class TodoModal extends Component {
   handleChange = e => {
     const userInput = e.target.value;
     this.setState({ userInput });
+  };
+
+  success = command => {
+    if (command) {
+      const lower = command.toLowerCase();
+      message.success(`${titleCase(command)} successful.`);
+    }
   };
 
   renderBody = (command, todo) => {
@@ -76,11 +88,7 @@ class TodoModal extends Component {
   render() {
     const { command, todo, visible } = this.props;
     const handleOk = () => this.handleOk(command, todo);
-    const title = command
-      ? command.slice(0, 1).toUpperCase() +
-        command.slice(1).toLowerCase() +
-        ' Todo'
-      : 'Error: no command';
+    const title = command ? `${titleCase(command)} Todo` : "Error: no command";
     return (
       <Modal
         visible={visible}

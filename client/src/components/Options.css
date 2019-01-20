@@ -11,3 +11,7 @@
   margin: 0 10px;
   font-size: 1.6em;
 }
+
+.Options > *:hover {
+  opacity: 0.5;
+}

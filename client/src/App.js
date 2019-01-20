@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import './App.css';
-import HeaderTitle from './components/HeaderTitle';
-import TodoListContainer from './components/TodoListContainer';
-import TodoModal from './components/TodoModal';
-import { Layout } from 'antd';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import "./App.css";
+import HeaderTitle from "./components/HeaderTitle";
+import TodoListContainer from "./components/TodoListContainer";
+import TodoModal from "./components/TodoModal";
+import { Layout } from "antd";
 
 const { Header, Content, Footer } = Layout;
 
@@ -16,7 +16,7 @@ class App extends Component {
         <Header>
           <HeaderTitle />
         </Header>
-        <Content style={{ padding: '50px' }}>
+        <Content style={{ padding: "50px" }}>
           <TodoListContainer />
         </Content>
         <Footer />
