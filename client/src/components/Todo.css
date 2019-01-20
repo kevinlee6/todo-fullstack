@@ -8,6 +8,7 @@
   cursor: pointer;
   word-wrap: break-word;
   width: 80%;
+  padding: 10px 0;
 }
 
 .todo-completed {
