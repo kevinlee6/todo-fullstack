@@ -6,13 +6,15 @@ import { List } from 'antd';
 
 const TodoList = ({ todos }) =>
   todos && todos.length ? (
-    <List>
-      {todos.map(todo => (
-        <List.Item key={todo.id}>
+    <List
+      size="large"
+      dataSource={todos}
+      renderItem={todo => (
+        <List.Item>
           <Todo todo={todo} />
         </List.Item>
-      ))}
-    </List>
+      )}
+    />
   ) : (
     <div>There are currently no todos in this section.</div>
   );
