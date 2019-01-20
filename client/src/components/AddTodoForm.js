@@ -37,9 +37,7 @@ class AddTodoForm extends Component {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Add Todo
-          </Button>
+          <Button type="primary" shape="circle" icon="plus" htmlType="submit" />
         </Form.Item>
       </Form>
     );
