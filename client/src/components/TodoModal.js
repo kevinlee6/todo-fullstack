@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toggleModal, editTodo, deleteTodo } from '../redux/actions';
 import { COMMANDS } from '../constants';

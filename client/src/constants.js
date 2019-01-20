@@ -4,6 +4,7 @@ export const VISIBILITY_FILTERS = {
   FILTER_INCOMPLETE: 'FILTER_INCOMPLETE',
 };
 
+// Commands for manipulating todos
 export const COMMANDS = {
   DELETE: 'DELETE',
   EDIT: 'EDIT',

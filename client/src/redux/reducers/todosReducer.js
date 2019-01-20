@@ -1,5 +1,6 @@
 import { ADD_TODO, DELETE_TODO, EDIT_TODO, TOGGLE_TODO } from '../actionTypes';
 
+// allIds and byIds for normalization of data
 const initialState = {
   allIds: [],
   byIds: {},

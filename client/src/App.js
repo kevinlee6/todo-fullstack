@@ -23,6 +23,8 @@ class App extends Component {
   }
 }
 
+// Need to get modal visibility from store to conditionally render the modal
+// for lifecycle method componentDidMount functionality
 const mapStateToProps = state => {
   const { modal } = state;
   const { visible } = modal;
