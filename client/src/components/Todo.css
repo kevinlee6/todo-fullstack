@@ -1,14 +1,13 @@
 .Todo {
   display: flex;
   justify-content: space-between;
-  width: 95%;
+  width: 100%;
 }
 
 .todo {
   cursor: pointer;
   word-wrap: break-word;
-  width: 80%;
-  max-width: 40vw;
+  width: 85%;
   padding: 10px 0;
 }
 
