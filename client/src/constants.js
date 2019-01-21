@@ -4,8 +4,10 @@ export const VISIBILITY_FILTERS = {
   FILTER_INCOMPLETE: 'FILTER_INCOMPLETE',
 };
 
-// Commands for manipulating todos
+// Commands for invoking modal
 export const COMMANDS = {
   DELETE: 'DELETE',
   EDIT: 'EDIT',
+  SIGN_IN: 'SIGN_IN',
+  REGISTER: 'REGISTER',
 };

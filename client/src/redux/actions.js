@@ -42,9 +42,9 @@ export const setFilter = filter => ({
   },
 });
 
-// nulls as default, in case toggleModal will be expanded
+// null as default, in case toggleModal will be expanded
 // for other modal usage, such as login
-export const toggleModal = (command = null, todo = null) => ({
+export const toggleModal = (command, todo = null) => ({
   type: TOGGLE_MODAL,
   payload: {
     command,

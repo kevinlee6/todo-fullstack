@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from './components/Header';
 import Content from './components/Content';
-import TodoModal from './components/TodoModal';
+import ModalWrapper from './components/ModalWrapper';
 import { Layout } from 'antd';
 import './App.css';
 const { Footer } = Layout;
@@ -15,7 +15,7 @@ class App extends Component {
         <Header />
         <Content />
         <Footer />
-        {visible ? <TodoModal /> : null}
+        {visible ? <ModalWrapper /> : null}
       </Layout>
     );
   }

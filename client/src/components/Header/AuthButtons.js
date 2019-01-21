@@ -11,7 +11,7 @@ const ButtonGroup = styled(Button.Group)`
 const AuthButtons = () => {
   return (
     <ButtonGroup>
-      <Button>Log In</Button>
+      <Button>Sign In</Button>
       <Button>Register</Button>
     </ButtonGroup>
   );
