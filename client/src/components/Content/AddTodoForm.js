@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { addTodo } from "../redux/actions";
-import { message, Form, Input, Button } from "antd";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addTodo } from '../../redux/actions';
+import { message, Form, Input, Button } from 'antd';
 
 class AddTodoForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInput: ""
+      userInput: '',
     };
   }
 
@@ -24,11 +24,11 @@ class AddTodoForm extends Component {
       return this.error();
     }
     this.props.addTodo(userInput);
-    this.setState({ userInput: "" });
+    this.setState({ userInput: '' });
   };
 
   error = () => {
-    message.error("Todo content cannot be blank.");
+    message.error('Todo content cannot be blank.');
   };
 
   render() {

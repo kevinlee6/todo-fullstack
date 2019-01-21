@@ -1,12 +1,16 @@
 import React from 'react';
 import { Button } from 'antd';
-import './AuthButtons.css';
+import styled from 'styled-components';
 
-const ButtonGroup = Button.Group;
+const ButtonGroup = styled(Button.Group)`
+  @media (max-width: 576px) {
+    display: none !important;
+  }
+`;
 
 const AuthButtons = () => {
   return (
-    <ButtonGroup className="AuthButtons">
+    <ButtonGroup>
       <Button>Log In</Button>
       <Button>Register</Button>
     </ButtonGroup>

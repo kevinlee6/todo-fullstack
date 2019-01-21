@@ -1,15 +1,20 @@
-import React from "react";
-import { connect } from "react-redux";
-import { VISIBILITY_FILTERS } from "../constants";
-import { setFilter } from "../redux/actions";
-import { getTodos } from "../redux/selectors";
-import { Radio } from "antd";
-import "./VisibilityFilters.css";
+import React from 'react';
+import { connect } from 'react-redux';
+import { VISIBILITY_FILTERS } from '../../constants';
+import { setFilter } from '../../redux/actions';
+import { getTodos } from '../../redux/selectors';
+import { Radio } from 'antd';
+import styled from 'styled-components';
 
 const { FILTER_ALL, FILTER_COMPLETED, FILTER_INCOMPLETE } = VISIBILITY_FILTERS;
 
+const RadioGroup = styled(Radio.Group)`
+  margin: 10px 0;
+  white-space: nowrap;
+`;
+
 const VisibilityFilters = ({ setFilter, all, completed, incomplete }) => (
-  <Radio.Group
+  <RadioGroup
     className="VisibilityFilters"
     defaultValue={FILTER_ALL}
     onChange={e => setFilter(e.target.value)}
@@ -21,7 +26,7 @@ const VisibilityFilters = ({ setFilter, all, completed, incomplete }) => (
     <Radio.Button value={FILTER_INCOMPLETE}>
       Incomplete ({incomplete})
     </Radio.Button>
-  </Radio.Group>
+  </RadioGroup>
 );
 
 const mapStateToProps = state => {

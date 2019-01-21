@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
-import { Drawer, Icon } from 'antd';
-import './Sidebar.css';
+import { Drawer, Icon as AntdIcon } from 'antd';
+import styled from 'styled-components';
+
+const Icon = styled(AntdIcon)`
+  color: white;
+  font-size: 1.6em;
+  :hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+`;
 
 class Sidebar extends Component {
   state = { visible: false };
