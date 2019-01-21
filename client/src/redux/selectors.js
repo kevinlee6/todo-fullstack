@@ -1,4 +1,4 @@
-import { VISIBILITY_FILTERS } from '../constants';
+import { VISIBILITY_FILTERS } from "../constants";
 
 const getTodosState = store => store.todos;
 
@@ -12,7 +12,8 @@ const getTodoById = (store, id) => {
   return todos ? { ...todos.byIds[id], id } : {};
 };
 
-const getTodos = store => getTodoIds(store).map(id => getTodoById(store, id));
+export const getTodos = store =>
+  getTodoIds(store).map(id => getTodoById(store, id));
 
 const { FILTER_ALL, FILTER_COMPLETED, FILTER_INCOMPLETE } = VISIBILITY_FILTERS;
 
