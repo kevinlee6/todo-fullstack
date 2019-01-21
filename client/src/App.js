@@ -1,10 +1,11 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import "./App.css";
-import TodoListContainer from "./components/TodoListContainer";
-import TodoModal from "./components/TodoModal";
-import { Layout } from "antd";
-import Header from "./components/Header";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './App.css';
+import TodoListContainer from './components/TodoListContainer';
+import TodoModal from './components/TodoModal';
+import { Layout } from 'antd';
+import Header from './components/Header';
+import './components/Content.css';
 
 const { Content, Footer } = Layout;
 
@@ -13,8 +14,8 @@ class App extends Component {
     const { visible } = this.props;
     return (
       <Layout className="layout">
-        <Header className="header" />
-        <Content style={{ padding: "50px" }}>
+        <Header />
+        <Content className="content">
           <TodoListContainer />
         </Content>
         <Footer />

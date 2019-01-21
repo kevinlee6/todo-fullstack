@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Drawer, Icon } from "antd";
-import "./Sidebar.css";
+import React, { Component } from 'react';
+import { Drawer, Icon } from 'antd';
+import './Sidebar.css';
 
 class Sidebar extends Component {
   state = { visible: false };
@@ -23,7 +23,6 @@ class Sidebar extends Component {
         />
         <Drawer
           title="Menu"
-          closable="false"
           placement="left"
           onClose={this.onClose}
           visible={this.state.visible}

@@ -22,6 +22,9 @@
   font-weight: 500;
 }
 
+.TodoList-Item {
+  padding: 12px;
+}
 .TodoList-Item:hover {
   background-color: rgba(250, 250, 250, 0.9);
 }
