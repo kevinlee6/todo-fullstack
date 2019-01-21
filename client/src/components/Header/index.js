@@ -22,9 +22,8 @@ export default () => (
     <Sidebar />
     <HeaderTitle />
     <Menu theme="dark" mode="horizontal">
-      <Menu.Item>
-        <AuthButtons />
-      </Menu.Item>
+      <Menu.Item />
     </Menu>
+    <AuthButtons />
   </Header>
 );
