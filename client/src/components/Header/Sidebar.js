@@ -9,6 +9,9 @@ const Icon = styled(AntdIcon)`
     cursor: pointer;
     opacity: 0.8;
   }
+  @media (max-width: 576px) {
+    margin-right: 15px;
+  }
 `;
 
 class Sidebar extends Component {

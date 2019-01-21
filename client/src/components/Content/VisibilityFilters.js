@@ -12,19 +12,22 @@ const RadioGroup = styled(Radio.Group)`
   margin: 10px 0 !important;
   white-space: nowrap;
 `;
+const RadioButton = styled(Radio.Button)`
+  @media (max-width: 576px) {
+    font-size: 3.5vw;
+  }
+`;
 
 const VisibilityFilters = ({ setFilter, all, completed, incomplete }) => (
   <RadioGroup
     defaultValue={FILTER_ALL}
     onChange={e => setFilter(e.target.value)}
   >
-    <Radio.Button value={FILTER_ALL}>All ({all})</Radio.Button>
-    <Radio.Button value={FILTER_COMPLETED}>
-      Completed ({completed})
-    </Radio.Button>
-    <Radio.Button value={FILTER_INCOMPLETE}>
+    <RadioButton value={FILTER_ALL}>All ({all})</RadioButton>
+    <RadioButton value={FILTER_COMPLETED}>Completed ({completed})</RadioButton>
+    <RadioButton value={FILTER_INCOMPLETE}>
       Incomplete ({incomplete})
-    </Radio.Button>
+    </RadioButton>
   </RadioGroup>
 );
 
