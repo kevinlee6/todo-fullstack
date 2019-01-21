@@ -15,7 +15,7 @@ export default (Button, command = "", handleCommand, handleCancel) => {
         {buttonText}
       </Button>
       <Button key="back" onClick={handleCancel}>
-        Return
+        Cancel
       </Button>
     </Fragment>
   );

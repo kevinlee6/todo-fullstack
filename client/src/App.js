@@ -1,27 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./App.css";
-import HeaderTitle from "./components/HeaderTitle";
 import TodoListContainer from "./components/TodoListContainer";
 import TodoModal from "./components/TodoModal";
 import { Layout } from "antd";
+import Header from "./components/Header";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 class App extends Component {
   render() {
     const { visible } = this.props;
     return (
-      <div className="App">
-        <Header>
-          <HeaderTitle />
-        </Header>
+      <Layout className="layout">
+        <Header className="header" />
         <Content style={{ padding: "50px" }}>
           <TodoListContainer />
         </Content>
         <Footer />
         {visible ? <TodoModal /> : null}
-      </div>
+      </Layout>
     );
   }
 }
