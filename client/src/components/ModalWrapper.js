@@ -3,10 +3,22 @@ import { connect } from 'react-redux';
 import { toggleModal, editTodo, deleteTodo } from '../redux/actions';
 import { COMMANDS } from '../constants';
 import { message, Modal, Input, Button } from 'antd';
+import AuthForm from './AuthForm';
 import modalFooter from './hoc/modalFooter';
 import { titleCase } from '../helper';
+import styled from 'styled-components';
 
-const { DELETE, EDIT } = COMMANDS;
+const { DELETE, EDIT, SIGN_IN, REGISTER } = COMMANDS;
+const todoCommands = [DELETE, EDIT];
+
+const ConfirmationP = styled.p`
+  margin: 15px 0;
+`;
+const Confirmation = ({ command }) => (
+  <ConfirmationP>
+    Are you sure you want to {command.toLowerCase()} the todo?
+  </ConfirmationP>
+);
 
 class ModalWrapper extends Component {
   constructor(props) {
@@ -24,7 +36,7 @@ class ModalWrapper extends Component {
     }
   }
 
-  handleOk = (command, todo) => {
+  handleOk = (command, todo = null) => {
     const { deleteTodo, editTodo, toggleModal } = this.props;
     switch (command) {
       case DELETE: {
@@ -64,10 +76,10 @@ class ModalWrapper extends Component {
   };
 
   error = () => {
-    message.error('Todo cannot be empty.');
+    message.error('Field cannot be empty.');
   };
 
-  renderBody = (command, todo) => {
+  renderBody = (command, todo = null) => {
     // IIFE to deal with switch/case
     const MainText = (() => () => {
       switch (command) {
@@ -85,22 +97,24 @@ class ModalWrapper extends Component {
             />
           );
         }
+        case SIGN_IN: {
+          return <AuthForm />;
+        }
+        case REGISTER: {
+          return 'register';
+        }
         default: {
           return <p>Unknown command.</p>;
         }
       }
     })();
 
-    const Supplement = () => (
-      <p>
-        Are you sure you want to {command && command.toLowerCase()} the todo?
-      </p>
-    );
-
     return (
       <Fragment>
         <MainText />
-        <Supplement />
+        {todoCommands.includes(command) ? (
+          <Confirmation command={command} />
+        ) : null}
       </Fragment>
     );
   };
@@ -108,7 +122,7 @@ class ModalWrapper extends Component {
   render() {
     const { command, todo, visible } = this.props;
     const handleOk = () => this.handleOk(command, todo);
-    const title = command ? `${titleCase(command)} Todo` : 'Error: no command';
+    const title = command ? `${titleCase(command)}` : 'Error: no command';
     return (
       <Modal
         visible={visible}

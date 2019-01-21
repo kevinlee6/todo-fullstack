@@ -1,21 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Icon as AntdIcon } from 'antd';
 
-const Svg = styled.svg`
-  fill: green;
-  min-width: 30px;
+const Icon = styled(AntdIcon)`
+  color: rgb(0, 222, 0);
+  font-size: 2em;
+  padding-right: 10px;
 `;
 
-const Logo = () => (
-  <Svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-  >
-    <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z" />
-  </Svg>
-);
+const Logo = () => <Icon type="check" />;
 
 const Div = styled.div`
   display: flex;
