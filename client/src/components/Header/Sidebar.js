@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Drawer, Icon } from "antd";
+import "./Sidebar.css";
 
 class Sidebar extends Component {
   state = { visible: false };
@@ -16,7 +17,7 @@ class Sidebar extends Component {
     return (
       <div className="Sidebar">
         <Icon
-          style={{ color: "white", fontSize: "2em" }}
+          className="sidebar-icon"
           type="menu-unfold"
           onClick={this.showDrawer}
         />
