@@ -26,17 +26,10 @@ const VisibilityFilters = ({ setFilter, all, completed, incomplete }) => (
 
 const mapStateToProps = state => {
   const todos = getTodos(state);
-  const COMPLETED = "completed";
-  const INCOMPLETE = "incomplete";
   const all = todos.length;
-  return todos.reduce(
-    (acc, todo) => {
-      const { completed } = todo;
-      completed ? (acc[COMPLETED] += 1) : (acc[INCOMPLETE] += 1);
-      return acc;
-    },
-    { all, completed: 0, incomplete: 0 }
-  );
+  const completed = todos.filter(todo => todo.completed).length;
+  const incomplete = all - completed;
+  return { all, completed, incomplete };
 };
 
 export default connect(
