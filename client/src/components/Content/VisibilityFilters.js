@@ -9,13 +9,12 @@ import styled from 'styled-components';
 const { FILTER_ALL, FILTER_COMPLETED, FILTER_INCOMPLETE } = VISIBILITY_FILTERS;
 
 const RadioGroup = styled(Radio.Group)`
-  margin: 10px 0;
+  margin: 10px 0 !important;
   white-space: nowrap;
 `;
 
 const VisibilityFilters = ({ setFilter, all, completed, incomplete }) => (
   <RadioGroup
-    className="VisibilityFilters"
     defaultValue={FILTER_ALL}
     onChange={e => setFilter(e.target.value)}
   >

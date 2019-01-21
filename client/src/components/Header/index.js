@@ -6,7 +6,7 @@ import { Layout, Menu as AntdMenu } from 'antd';
 import styled from 'styled-components';
 
 const Header = styled(Layout.Header)`
-  padding-left: 10px;
+  padding-left: 20px !important;
   display: flex;
   align-items: center;
 `;
