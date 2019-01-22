@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from './components/Header';
 import Content from './components/Content';
+import Footer from './components/Footer';
 import ModalWrapper from './components/ModalWrapper';
 import { Layout } from 'antd';
 import './App.css';
-const { Footer } = Layout;
 
 class App extends Component {
   render() {

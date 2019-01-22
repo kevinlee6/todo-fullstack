@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const Content = styled(Layout.Content)`
   padding: 25px 50px;
+  min-height: 87vh !important;
 
   @media (max-width: 576px) {
     display: flex;
