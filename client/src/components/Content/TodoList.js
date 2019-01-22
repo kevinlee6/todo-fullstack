@@ -2,17 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 import getByVisibility from '../../redux/selectors';
 import Todo from './Todo';
-import { List } from 'antd';
+import { List, Empty as AntdEmpty } from 'antd';
 import styled from 'styled-components';
-
-const P = styled.p`
-  margin: 15px 0;
-`;
 
 const Item = styled(List.Item)`
   padding: 12px !important;
   :hover {
     background-color: rgba(250, 250, 250, 0.9);
+  }
+`;
+
+const Empty = styled(AntdEmpty)`
+  @media (min-width: 577px) {
+    width: 70%;
   }
 `;
 
@@ -28,7 +30,7 @@ const TodoList = ({ todos }) =>
       )}
     />
   ) : (
-    <P>There are currently no todos in this section.</P>
+    <Empty description="There are no todos in this section." />
   );
 
 const mapStateToProps = state => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Drawer, Icon as AntdIcon } from 'antd';
+import { Drawer, Icon as AntdIcon, List } from 'antd';
 import styled from 'styled-components';
 
 const Icon = styled(AntdIcon)`
@@ -14,6 +14,23 @@ const Icon = styled(AntdIcon)`
   }
 `;
 
+const listData = ['Sign in', 'Register'];
+
+const A = styled.a`
+  font-size: 1.6em;
+`;
+
+const DrawerList = () => (
+  <List
+    dataSource={listData}
+    renderItem={item => (
+      <List.Item>
+        <A>{item}</A>
+      </List.Item>
+    )}
+  />
+);
+
 class Sidebar extends Component {
   state = { visible: false };
 
@@ -27,7 +44,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <div className="Sidebar">
+      <div>
         <Icon
           className="sidebar-icon"
           type="menu-unfold"
@@ -39,7 +56,7 @@ class Sidebar extends Component {
           onClose={this.onClose}
           visible={this.state.visible}
         >
-          Dummy content
+          <DrawerList />
         </Drawer>
       </div>
     );
