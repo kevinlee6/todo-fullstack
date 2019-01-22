@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Icon from './Icon';
+import { PrefixIcon } from './Styled';
 import { Form, Input } from 'antd';
 
 export default class extends Component {
@@ -19,7 +19,7 @@ export default class extends Component {
           ],
         })(
           <Input
-            prefix={<Icon type="user" />}
+            prefix={<PrefixIcon type="user" />}
             type="email"
             placeholder="Email"
           />

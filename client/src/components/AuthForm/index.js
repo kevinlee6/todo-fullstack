@@ -3,6 +3,7 @@ import Username from './Username';
 import Password from './Password';
 import SignInSpecific from './SignInSpecific';
 import RegisterSpecific from './RegisterSpecific';
+import Buttons from './Buttons';
 import { COMMANDS } from '../../constants';
 import { Form } from 'antd';
 
@@ -13,7 +14,15 @@ class AuthForm extends Component {
     e.preventDefault();
   };
 
-  validateConfirm = (rule, val, cb) => {
+  handleConfirmFocus = (rule, val, cb) => {
+    const { form } = this.props;
+    const original = form.getFieldValue('password');
+    if (val === original) {
+      cb();
+    }
+  };
+
+  handleConfirmBlur = (rule, val, cb) => {
     const { form } = this.props;
     const original = form.getFieldValue('password');
     if (val !== original) {
@@ -30,7 +39,8 @@ class AuthForm extends Component {
         return (
           <RegisterSpecific
             getFieldDecorator={getFieldDecorator}
-            validator={this.validateConfirm}
+            handleBlur={this.handleConfirmBlur}
+            handleFocus={this.handleConfirmFocus}
           />
         );
       }
@@ -48,6 +58,7 @@ class AuthForm extends Component {
         <Username getFieldDecorator={getFieldDecorator} />
         <Password getFieldDecorator={getFieldDecorator} />
         {this.renderSpecific(command, getFieldDecorator)}
+        <Buttons command={command} />
       </Form>
     );
   }

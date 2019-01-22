@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import Icon from './Icon';
+import { PrefixIcon } from './Styled';
 import { Form, Input } from 'antd';
 
 export default class extends Component {
   render() {
-    const { getFieldDecorator, validator } = this.props;
+    const { getFieldDecorator, handleBlur, handleFocus } = this.props;
     return (
       <Form.Item>
         {getFieldDecorator('confirm', {
@@ -16,17 +16,21 @@ export default class extends Component {
                   required: true,
                   message: 'Password confirmation cannot be blank.',
                 },
-                { validator },
+                { validator: handleBlur },
                 {
                   min: 6,
                   message: 'Password must be at least 6 characters.',
                 },
               ],
             },
+            {
+              trigger: 'onFocus',
+              rules: [{ validator: handleFocus }],
+            },
           ],
         })(
           <Input.Password
-            prefix={<Icon type="lock" />}
+            prefix={<PrefixIcon type="lock" />}
             placeholder="Password confirmation"
           />
         )}

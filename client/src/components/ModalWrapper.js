@@ -121,13 +121,16 @@ class ModalWrapper extends Component {
     const { command, todo, visible } = this.props;
     const handleOk = () => this.handleOk(command, todo);
     const title = command ? `${titleCase(command)}` : 'Error: no command';
+    const footer = todoCommands.includes(command)
+      ? modalFooter(Button, command, handleOk, this.handleCancel)
+      : null;
     return (
       <Modal
         visible={visible}
         title={title}
         onOk={handleOk}
         onCancel={this.handleCancel}
-        footer={modalFooter(Button, command, handleOk, this.handleCancel)}
+        footer={footer}
       >
         {this.renderBody(command, todo)}
       </Modal>
