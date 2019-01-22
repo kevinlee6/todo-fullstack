@@ -4,23 +4,30 @@ import { Form, Input } from 'antd';
 
 export default class extends Component {
   render() {
-    const { getFieldDecorator } = this.props;
+    const { getFieldDecorator, validator } = this.props;
     return (
       <Form.Item>
-        {getFieldDecorator('password', {
+        {getFieldDecorator('confirm', {
           validate: [
             {
               trigger: 'onBlur',
               rules: [
-                { required: true, message: 'Password cannot be blank.' },
-                { min: 6, message: 'Password must be at least 6 characters.' },
+                {
+                  required: true,
+                  message: 'Password confirmation cannot be blank.',
+                },
+                { validator },
+                {
+                  min: 6,
+                  message: 'Password must be at least 6 characters.',
+                },
               ],
             },
           ],
         })(
           <Input.Password
             prefix={<Icon type="lock" />}
-            placeholder="Password"
+            placeholder="Password confirmation"
           />
         )}
       </Form.Item>

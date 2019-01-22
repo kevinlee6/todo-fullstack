@@ -7,9 +7,23 @@ export default class extends Component {
     const { getFieldDecorator } = this.props;
     return (
       <Form.Item>
-        {getFieldDecorator('username', {
-          rules: [{ required: true, message: 'Username cannot be blank.' }],
-        })(<Input prefix={<Icon type="user" />} placeholder="Username" />)}
+        {getFieldDecorator('email', {
+          validate: [
+            {
+              trigger: 'onBlur',
+              rules: [
+                { required: true, message: 'Email cannot be blank.' },
+                { type: 'email', message: 'Email must be valid.' },
+              ],
+            },
+          ],
+        })(
+          <Input
+            prefix={<Icon type="user" />}
+            type="email"
+            placeholder="Email"
+          />
+        )}
       </Form.Item>
     );
   }

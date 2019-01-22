@@ -97,11 +97,9 @@ class ModalWrapper extends Component {
             />
           );
         }
-        case SIGN_IN: {
-          return <AuthForm />;
-        }
+        case SIGN_IN:
         case REGISTER: {
-          return 'register';
+          return <AuthForm command={command} />;
         }
         default: {
           return <p>Unknown command.</p>;
