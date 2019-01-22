@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { toggleModal, editTodo, deleteTodo } from '../redux/actions';
+import { showModal, hideModal, editTodo, deleteTodo } from '../redux/actions';
 import { COMMANDS } from '../constants';
 import { message, Modal, Input, Button } from 'antd';
 import AuthForm from './AuthForm';
@@ -37,7 +37,7 @@ class ModalWrapper extends Component {
   }
 
   handleOk = (command, todo = null) => {
-    const { deleteTodo, editTodo, toggleModal } = this.props;
+    const { deleteTodo, editTodo, hideModal } = this.props;
     switch (command) {
       case DELETE: {
         deleteTodo(todo.id);
@@ -57,11 +57,11 @@ class ModalWrapper extends Component {
       }
     }
     this.success(command);
-    toggleModal();
+    hideModal();
   };
 
   handleCancel = () => {
-    this.props.toggleModal();
+    this.props.hideModal();
   };
 
   handleChange = e => {
@@ -146,5 +146,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { toggleModal, editTodo, deleteTodo }
+  { hideModal, showModal, editTodo, deleteTodo }
 )(ModalWrapper);

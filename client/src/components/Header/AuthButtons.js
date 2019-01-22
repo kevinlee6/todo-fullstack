@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleModal } from '../../redux/actions';
+import { showModal } from '../../redux/actions';
 import { COMMANDS } from '../../constants';
 import { Button } from 'antd';
 import styled from 'styled-components';
@@ -13,16 +13,16 @@ const ButtonGroup = styled(Button.Group)`
   }
 `;
 
-const AuthButtons = ({ toggleModal }) => {
+const AuthButtons = ({ showModal }) => {
   return (
     <ButtonGroup>
-      <Button onClick={() => toggleModal(SIGN_IN)}>Sign In</Button>
-      <Button onClick={() => toggleModal(REGISTER)}>Register</Button>
+      <Button onClick={() => showModal(SIGN_IN)}>Sign In</Button>
+      <Button onClick={() => showModal(REGISTER)}>Register</Button>
     </ButtonGroup>
   );
 };
 
 export default connect(
   null,
-  { toggleModal }
+  { showModal }
 )(AuthButtons);

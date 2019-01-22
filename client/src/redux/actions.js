@@ -4,7 +4,8 @@ import {
   EDIT_TODO,
   TOGGLE_TODO,
   SET_FILTER,
-  TOGGLE_MODAL,
+  SHOW_MODAL,
+  HIDE_MODAL,
 } from './actionTypes';
 
 let nextTodoId = 0;
@@ -44,10 +45,14 @@ export const setFilter = filter => ({
 
 // null as default, in case toggleModal will be expanded
 // for other modal usage, such as login
-export const toggleModal = (command, todo = null) => ({
-  type: TOGGLE_MODAL,
+export const showModal = (command, todo = null) => ({
+  type: SHOW_MODAL,
   payload: {
     command,
     todo,
   },
+});
+
+export const hideModal = () => ({
+  type: HIDE_MODAL,
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { toggleModal } from '../../redux/actions';
+import { showModal } from '../../redux/actions';
 import { COMMANDS } from '../../constants';
 import { Icon } from 'antd';
 import styled from 'styled-components';
@@ -27,18 +27,18 @@ const Div = styled.div`
 
 // Each todo will have a set of options/buttons to edit/delete
 // The buttons will trigger a confirmation modal before commiting
-const Options = ({ toggleModal, todo }) => (
+const Options = ({ showModal, todo }) => (
   <Div>
-    <Icon type="edit" onClick={() => toggleModal(EDIT, todo)} />
+    <Icon type="edit" onClick={() => showModal(EDIT, todo)} />
     <Icon
       style={{ color: 'red' }}
       type="minus-circle"
-      onClick={() => toggleModal(DELETE, todo)}
+      onClick={() => showModal(DELETE, todo)}
     />
   </Div>
 );
 
 export default connect(
   null,
-  { toggleModal }
+  { showModal }
 )(Options);

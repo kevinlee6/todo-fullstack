@@ -22,7 +22,7 @@ export default ({ command }) => {
     <FormItem>
       <WideButton type="primary">{first}</WideButton>
       <p>
-        or <Link to={urlFriendly(second)}>{second}</Link>
+        or <Link to={`/${urlFriendly(second)}`}>{second}</Link>
       </p>
     </FormItem>
   );

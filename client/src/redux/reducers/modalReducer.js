@@ -1,4 +1,4 @@
-import { TOGGLE_MODAL } from '../actionTypes';
+import { SHOW_MODAL, HIDE_MODAL } from '../actionTypes';
 
 const initialState = {
   visible: false,
@@ -7,13 +7,18 @@ const initialState = {
 export default (state = initialState, action) => {
   const payload = action.payload;
   switch (action.type) {
-    case TOGGLE_MODAL: {
+    case SHOW_MODAL: {
       const { command, todo } = payload;
       return {
         ...state,
-        visible: !state.visible,
+        visible: true,
         command,
         todo,
+      };
+    }
+    case HIDE_MODAL: {
+      return {
+        visible: false,
       };
     }
     default: {

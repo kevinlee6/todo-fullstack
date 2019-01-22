@@ -5,4 +5,5 @@ export const EDIT_TODO = 'EDIT_TODO';
 
 export const SET_FILTER = 'SET_FILTER';
 
-export const TOGGLE_MODAL = 'TOGGLE_MODAL';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const HIDE_MODAL = 'HIDE_MODAL';

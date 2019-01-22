@@ -26,11 +26,9 @@ const H1 = styled.h1`
   white-space: nowrap;
 `;
 
-const HeaderTitle = () => (
+export default () => (
   <Div>
     <Logo />
     <H1>Todo Manager</H1>
   </Div>
 );
-
-export default HeaderTitle;

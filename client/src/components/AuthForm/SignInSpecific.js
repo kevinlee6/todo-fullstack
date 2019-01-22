@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Checkbox } from 'antd';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Div = styled.div`
@@ -19,9 +20,7 @@ export default class extends Component {
             valuePropName: 'checked',
             initialValue: false,
           })(<Checkbox>Stay signed in</Checkbox>)}
-          <a className="login-form-forgot" href="">
-            Forgot your password?
-          </a>
+          <Link to="forgotpassword">Forgot your password?</Link>
         </Div>
       </Form.Item>
     );

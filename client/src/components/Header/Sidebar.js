@@ -27,7 +27,7 @@ const DrawerList = () => (
     dataSource={listData}
     renderItem={item => (
       <List.Item>
-        <StyledLink to={urlFriendly(item)}>{item}</StyledLink>
+        <StyledLink to={`/${urlFriendly(item)}`}>{item}</StyledLink>
       </List.Item>
     )}
   />
@@ -53,7 +53,7 @@ class Sidebar extends Component {
           onClick={this.showDrawer}
         />
         <Drawer
-          title="Menu"
+          title={<h2>Hello</h2>}
           placement="left"
           onClose={this.onClose}
           visible={this.state.visible}
