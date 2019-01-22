@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { COMMANDS } from '../../constants';
+import { urlFriendly } from '../../helper';
 import { Form, Button } from 'antd';
 import styled from 'styled-components';
 
@@ -20,7 +22,7 @@ export default ({ command }) => {
     <FormItem>
       <WideButton type="primary">{first}</WideButton>
       <p>
-        or <a href="">{second}</a>
+        or <Link to={urlFriendly(second)}>{second}</Link>
       </p>
     </FormItem>
   );

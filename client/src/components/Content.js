@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import TodoListContainer from './TodoListContainer';
+import TodoListContainer from './Todos';
 import styled from 'styled-components';
 
 const Content = styled(Layout.Content)`

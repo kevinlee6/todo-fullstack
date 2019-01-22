@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { urlFriendly } from '../../helper';
 import { Drawer, Icon as AntdIcon, List } from 'antd';
 import styled from 'styled-components';
 
@@ -14,9 +16,9 @@ const Icon = styled(AntdIcon)`
   }
 `;
 
-const listData = ['Sign in', 'Register'];
+const listData = ['Home', 'Sign in', 'Register'];
 
-const A = styled.a`
+const StyledLink = styled(Link)`
   font-size: 1.6em;
 `;
 
@@ -25,7 +27,7 @@ const DrawerList = () => (
     dataSource={listData}
     renderItem={item => (
       <List.Item>
-        <A>{item}</A>
+        <StyledLink to={urlFriendly(item)}>{item}</StyledLink>
       </List.Item>
     )}
   />

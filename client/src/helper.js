@@ -6,3 +6,5 @@ export const titleCase = text =>
     .split(/[_\s]/gi)
     .map(word => titleCaseHelper(word))
     .join(' ');
+
+export const urlFriendly = text => text.replace(/\s+/gi, '').toLowerCase();

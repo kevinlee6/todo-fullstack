@@ -9,12 +9,10 @@ const Div = styled.div`
 `;
 
 // Future scalability option to have multiple todo lists
-const TodoListContainer = () => (
+export default () => (
   <Div>
     <AddTodoForm />
     <VisibilityFilters />
     <TodoList />
   </Div>
 );
-
-export default TodoListContainer;
