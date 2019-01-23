@@ -1,13 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { toggleTodo } from '../../redux/actions';
 import getByVisibility from '../../redux/selectors';
 import Todo from './Todo';
-import { List, Empty as AntdEmpty } from 'antd';
+import { message, List, Empty as AntdEmpty } from 'antd';
 import styled from 'styled-components';
 
 const Item = styled(List.Item)`
   padding: 12px !important;
+  ${({ completed }) => completed === 'true' && { backgroundColor: 'lightgrey' }}
+
   :hover {
+    cursor: pointer;
     background-color: rgba(250, 250, 250, 0.9);
   }
 `;
@@ -18,13 +22,21 @@ const Empty = styled(AntdEmpty)`
   }
 `;
 
-const TodoList = ({ todos }) =>
+const info = () => message.info('Todo toggled');
+
+const TodoList = ({ todos, toggleTodo }) =>
   todos && todos.length ? (
     <List
       size="large"
       dataSource={todos}
       renderItem={todo => (
-        <Item>
+        <Item
+          onClick={() => {
+            info();
+            toggleTodo(todo.id);
+          }}
+          completed={todo.completed.toString()}
+        >
           <Todo todo={todo} />
         </Item>
       )}
@@ -39,4 +51,7 @@ const mapStateToProps = state => {
   return { todos };
 };
 
-export default connect(mapStateToProps)(TodoList);
+export default connect(
+  mapStateToProps,
+  { toggleTodo }
+)(TodoList);

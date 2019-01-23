@@ -24,6 +24,7 @@ class AddTodoForm extends Component {
       return this.error();
     }
     this.props.addTodo(userInput);
+    message.success('Added todo');
     this.setState({ userInput: '' });
   };
 

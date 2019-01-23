@@ -2,10 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { showModal } from '../../redux/actions';
 import { COMMANDS } from '../../constants';
-import { Icon } from 'antd';
+import { Icon as AntdIcon } from 'antd';
 import styled from 'styled-components';
 
 const { DELETE, EDIT } = COMMANDS;
+
+const Icon = styled(AntdIcon)`
+  padding: 10px;
+`;
 
 const Div = styled.div`
   width: 15%;
@@ -29,11 +33,20 @@ const Div = styled.div`
 // The buttons will trigger a confirmation modal before commiting
 const Options = ({ showModal, todo }) => (
   <Div>
-    <Icon type="edit" onClick={() => showModal(EDIT, todo)} />
+    <Icon
+      type="edit"
+      onClick={e => {
+        e.stopPropagation();
+        showModal(EDIT, todo);
+      }}
+    />
     <Icon
       style={{ color: 'red' }}
       type="minus-circle"
-      onClick={() => showModal(DELETE, todo)}
+      onClick={e => {
+        e.stopPropagation();
+        showModal(DELETE, todo);
+      }}
     />
   </Div>
 );
