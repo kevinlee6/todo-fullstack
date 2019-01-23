@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Icon as AntdIcon } from 'antd';
 
 const Icon = styled(AntdIcon)`
@@ -17,7 +18,6 @@ const Div = styled.div`
   justify-content: space-around;
   min-width: 120px;
   max-width: 250px;
-  margin: 0 30px;
 `;
 
 const H1 = styled.h1`
@@ -27,8 +27,10 @@ const H1 = styled.h1`
 `;
 
 export default () => (
-  <Div>
-    <Logo />
-    <H1>Todo Manager</H1>
-  </Div>
+  <Link to="/">
+    <Div>
+      <Logo />
+      <H1>Todo Manager</H1>
+    </Div>
+  </Link>
 );
