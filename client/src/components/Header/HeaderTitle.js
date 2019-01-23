@@ -9,6 +9,11 @@ const Icon = styled(AntdIcon)`
   padding-right: 10px;
 `;
 
+const StyledLink = styled(Link)`
+  color: transparent;
+  transition: none;
+`;
+
 const Logo = () => <Icon type="check" />;
 
 const Div = styled.div`
@@ -27,10 +32,10 @@ const H1 = styled.h1`
 `;
 
 export default () => (
-  <Link to="/">
+  <StyledLink to="/">
     <Div>
       <Logo />
       <H1>Todo Manager</H1>
     </Div>
-  </Link>
+  </StyledLink>
 );
