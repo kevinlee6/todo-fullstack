@@ -8,6 +8,7 @@ import TodoContainer from './Todos';
 import AuthForm from './AuthForm';
 import { Layout } from 'antd';
 import { COMMANDS } from '../constants';
+import shrinkContainer from './hoc/shrinkContainer';
 
 const { SIGN_IN, REGISTER } = COMMANDS;
 
@@ -22,11 +23,15 @@ class App extends Component {
             <Redirect from="/home" to="/" />
             <Route
               path="/signin"
-              render={() => <AuthForm command={SIGN_IN} />}
+              render={() =>
+                shrinkContainer(<AuthForm command={SIGN_IN} />, SIGN_IN)
+              }
             />
             <Route
               path="/register"
-              render={() => <AuthForm command={REGISTER} />}
+              render={() =>
+                shrinkContainer(<AuthForm command={REGISTER} />, REGISTER)
+              }
             />
           </Switch>
         </Content>
