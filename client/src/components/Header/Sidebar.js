@@ -22,12 +22,14 @@ const StyledLink = styled(Link)`
   font-size: 1.6em;
 `;
 
-const DrawerList = () => (
+const DrawerList = ({ closeDrawer }) => (
   <List
     dataSource={listData}
     renderItem={item => (
       <List.Item>
-        <StyledLink to={`/${urlFriendly(item)}`}>{item}</StyledLink>
+        <StyledLink onClick={closeDrawer} to={`/${urlFriendly(item)}`}>
+          {item}
+        </StyledLink>
       </List.Item>
     )}
   />
@@ -58,7 +60,7 @@ class Sidebar extends Component {
           onClose={this.onClose}
           visible={this.state.visible}
         >
-          <DrawerList />
+          <DrawerList closeDrawer={this.onClose} />
         </Drawer>
       </div>
     );
