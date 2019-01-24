@@ -2,7 +2,7 @@ const db = require('../db');
 
 const todos = db('todos');
 
-const all = () => todos.select();
+const all = user_id => todos.where({ user_id });
 const get = id => todos.where({ id: parseInt(id) });
 const create = payload => {
   const { content, user_id } = payload;
