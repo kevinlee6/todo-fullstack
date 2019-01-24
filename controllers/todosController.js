@@ -3,7 +3,7 @@ const db = require('../db');
 const todos = db('todos');
 
 const all = () => todos.select();
-const get = id => todos.where({ id });
+const get = id => todos.where({ id: parseInt(id) });
 const create = (content, user_id) => todos.insert({ content, user_id });
 const update = (id, payload) => {
   const todo = get(id);

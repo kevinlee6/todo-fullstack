@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export default styled(Layout.Content)`
   padding: 25px 50px;
-  min-height: 87vh !important;
+  min-height: 44vh !important;
 
   @media (max-width: 576px) {
     display: flex;
