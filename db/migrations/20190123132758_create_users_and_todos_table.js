@@ -11,7 +11,7 @@ const usersTable = t => {
   t.string('email').notNullable();
   t.unique('email');
   t.string('password').notNullable();
-  t.timestamps();
+  t.timestamps(false, true);
 };
 
 const todosTable = t => {
@@ -23,7 +23,7 @@ const todosTable = t => {
   t.boolean('completed')
     .notNullable()
     .defaultTo(false);
-  t.timestamps();
+  t.timestamps(false, true);
 };
 
 exports.up = async db => {
