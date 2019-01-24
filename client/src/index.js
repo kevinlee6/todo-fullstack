@@ -7,7 +7,9 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 
 // change global config
+import axios from 'axios';
 import { message } from 'antd';
+axios.defaults.baseURL = 'http://localhost:3001/api';
 message.config({ maxCount: 1, duration: 0.8 });
 
 ReactDOM.render(

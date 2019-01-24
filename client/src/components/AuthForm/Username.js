@@ -20,6 +20,7 @@ export default class extends Component {
         })(
           <Input
             prefix={<PrefixIcon type="user" />}
+            name="email"
             type="email"
             placeholder="Email"
           />
