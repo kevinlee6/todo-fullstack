@@ -17,7 +17,9 @@ const usersTable = t => {
 const todosTable = t => {
   t.increments();
   t.integer(fk).unsigned();
-  t.foreign(fk).references(ft);
+  t.foreign(fk)
+    .references(ft)
+    .onDelete('CASCADE');
   t.index(fk);
   t.string('content').notNullable();
   t.boolean('completed')

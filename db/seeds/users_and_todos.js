@@ -1,8 +1,13 @@
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 const password = 'password';
 
+// Helper function that generates hash on call.
+const genHash = () => bcrypt.hashSync(password, saltRounds);
+
 const usersData = [
-  { email: 'email@email.com', password },
-  { email: 'test@test.com', password },
+  { email: 'email@email.com', password: genHash() },
+  { email: 'test@test.com', password: genHash() },
 ];
 
 const todosData = [
