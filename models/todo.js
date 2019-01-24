@@ -4,15 +4,18 @@ const todos = db('todos');
 
 const all = () => todos.select();
 const get = id => todos.where({ id: parseInt(id) });
-const create = (content, user_id) => todos.insert({ content, user_id });
-const update = (id, payload) => {
+const create = payload => {
+  const { content, user_id } = payload;
+  return todos.insert({ content, user_id });
+};
+const update = payload => {
+  const { id, content, completed } = payload;
   const todo = get(id);
-  const { content, completed } = payload;
   if (content) {
-    todo.update({ content });
+    return todo.update({ content });
   }
   if (completed) {
-    todo.update({ completed });
+    return todo.update({ completed });
   }
 };
 const destroy = id => get(id).del();
