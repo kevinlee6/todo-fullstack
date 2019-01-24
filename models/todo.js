@@ -2,11 +2,11 @@ const db = require('../db');
 
 const todos = db('todos');
 
-const all = user_id => todos.where({ user_id });
+const all = user_id => todos.where({ user_id: parseInt(user_id) });
 const get = id => todos.where({ id: parseInt(id) });
 const create = payload => {
   const { content, user_id } = payload;
-  return todos.insert({ content, user_id });
+  return todos.insert({ content, user_id: parseInt(user_id) });
 };
 const update = payload => {
   const { id, content, completed } = payload;
