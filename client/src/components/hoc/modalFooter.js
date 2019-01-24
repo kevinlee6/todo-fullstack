@@ -11,7 +11,12 @@ export default (Button, command = '', handleCommand, handleCancel) => {
   const buttonType = command === DELETE ? 'danger' : 'primary';
   return (
     <Fragment>
-      <Button type={buttonType} onClick={handleCommand}>
+      <Button
+        form="auth_form"
+        type={buttonType}
+        htmlType="submit"
+        onClick={handleCommand}
+      >
         {buttonText}
       </Button>
       <Button key="back" onClick={handleCancel}>

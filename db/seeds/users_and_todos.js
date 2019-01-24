@@ -3,6 +3,7 @@ const saltRounds = 10;
 const password = 'password';
 
 // Helper function that generates hash on call.
+// might make async in future for nonblocking
 const genHash = () => bcrypt.hashSync(password, saltRounds);
 
 const usersData = [

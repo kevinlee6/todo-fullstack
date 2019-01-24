@@ -23,7 +23,9 @@ const Buttons = ({ command, visible, hideModal }) => {
   const closeModal = visible ? hideModal : null;
   return (
     <FormItem>
-      <WideButton type="primary">{first}</WideButton>
+      <WideButton htmlType="submit" type="primary" form="auth_form">
+        {first}
+      </WideButton>
       <p>
         or{' '}
         <Link onClick={closeModal} to={`/${urlFriendly(second)}`}>

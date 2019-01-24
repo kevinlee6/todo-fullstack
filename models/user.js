@@ -1,13 +1,18 @@
 const db = require('../db');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const users = db('users');
 
 const all = () => users.select();
 const get = id => users.where({ id: parseInt(id) });
-const create = payload => {
+const create = async payload => {
   const { email, password } = payload;
-  return users.insert({ email, password });
+  if (!(email && password)) return { err: 'Missing email or password.' };
+  const hash = await bcrypt.hash(password, saltRounds);
+  return users.insert({ email, password: hash });
 };
+
 const update = payload => {
   const { id, password } = payload;
   if (id && password) {
