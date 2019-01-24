@@ -10,8 +10,19 @@ const create = payload => {
 };
 const update = payload => {
   const { id, password } = payload;
-  const user = get(id);
-  return user.update({ password });
+  if (id && password) {
+    const user = get(id);
+    return user.update({ password });
+  } else {
+    // If no id or password, then cannot continue update.
+    const fields = ['id', 'password'];
+    fields.forEach(field => {
+      if (!payload[field]) {
+        console.log(`${field} must be present in order to update.`);
+      }
+    });
+    return;
+  }
 };
 const destroy = id => get(id).del();
 

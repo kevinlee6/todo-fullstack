@@ -26,10 +26,8 @@ const todosTable = t => {
   t.timestamps(false, true);
 };
 
-exports.up = async db => {
+exports.up = async db =>
   await db.schema.createTable(users, usersTable).createTable(todos, todosTable);
-};
 
-exports.down = async db => {
+exports.down = async db =>
   await db.schema.dropTableIfExists(todos).dropTableIfExists(users);
-};
