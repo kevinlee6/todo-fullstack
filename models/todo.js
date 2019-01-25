@@ -1,23 +1,37 @@
 const db = require('../db');
 
-const todos = db('todos');
+const TODOS = 'todos';
 
-const all = user_id => todos.where({ user_id: parseInt(user_id) });
-const get = id => todos.where({ id: parseInt(id) });
-const create = payload => {
-  const { content, user_id } = payload;
-  return todos.insert({ content, user_id: parseInt(user_id) });
+const getAll = async user_id => {
+  const allTodos = await db(TODOS).where({ user_id });
+  return allTodos;
 };
-const update = payload => {
+
+const get = async id => {
+  const todo = await db(TODOS)
+    .where({ id })
+    .first();
+  return todo;
+};
+
+const create = async payload => {
+  const { user_id, content } = payload;
+  return db(TODOS).insert({ user_id, content });
+};
+
+const update = async payload => {
   const { id, content, completed } = payload;
-  const todo = get(id);
-  if (content) {
-    return todo.update({ content });
-  }
-  if (completed) {
-    return todo.update({ completed });
-  }
+  const user = await db(USERS)
+    .where({ id })
+    .update({ content, updated_at: 'now' });
+  return todo;
 };
-const destroy = id => get(id).del();
 
-module.exports = { all, get, create, update, destroy };
+const destroy = async id => {
+  const toDelete = await db(TODOS)
+    .where({ id })
+    .del();
+  return !!toDelete;
+};
+
+module.exports = { getAll, get, create, update, destroy };

@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.get(parseInt(id));
-    return res.status(200).send({ user });
+    return res.status(200).json({ user });
   } catch (e) {
     return res
       .status(500)
@@ -32,7 +32,7 @@ router.post('/', async (req, res) => {
     if (validateRegister(req.query)) {
       const { email, password } = req.query;
       const user = await User.create({ email, password });
-      res.json({ user });
+      res.status(200).json({ user });
     } else {
       throw Error();
     }
@@ -76,7 +76,7 @@ router.delete('/:id', async (req, res) => {
     const destroy = await User.destroy(parseInt(id));
     return res.status(200).json(destroy);
   } catch (e) {
-    return res.status(500).json(e);
+    return res.status(500).json({ message: 'User could not be deleted.' });
   }
 });
 
