@@ -20,28 +20,17 @@ const get = async id => {
 
 const create = async payload => {
   const { email, password } = payload;
-  if (!(email && password)) return { err: 'Missing email or password.' };
   const hash = await bcrypt.hash(password, saltRounds);
   return db(USERS).insert({ email, password: hash });
 };
 
 const update = async payload => {
   const { id, password } = payload;
-  if (id && password) {
-    const user = await db(USERS)
-      .where({ id })
-      .update({ password });
-    return user;
-  } else {
-    // If no id or password, then cannot continue update.
-    const fields = ['id', 'password'];
-    fields.forEach(field => {
-      if (!payload[field]) {
-        console.log(`${field} must be present in order to update.`);
-      }
-    });
-    return;
-  }
+  const hash = await bcrypt.hash(password, saltRounds);
+  const user = await db(USERS)
+    .where({ id })
+    .update({ password: hash });
+  return user;
 };
 const destroy = async id => {
   const toDelete = await db(USERS)

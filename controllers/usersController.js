@@ -34,10 +34,10 @@ router.post('/', async (req, res) => {
       const user = await User.create({ email, password });
       res.json({ user });
     } else {
-      throw Error('Account creation failed.');
+      throw Error();
     }
   } catch (e) {
-    return res.status(500).json({ message: e });
+    return res.status(500).json({ message: 'Account creation failed.' });
   }
 });
 
@@ -46,6 +46,11 @@ router.patch('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { password, newPassword } = req.query;
+    if (password === newPassword) {
+      return res
+        .status(200)
+        .json({ message: 'Your entered passwords are the same.' });
+    }
     const user = await User.get(parseInt(id));
     const isSameHash = await bcrypt.compare(password, user.password);
     if (isSameHash) {
@@ -55,10 +60,12 @@ router.patch('/:id', async (req, res) => {
       });
       return res.status(200).json({ message: 'Password update successful.' });
     } else {
-      throw Error('Original password does not match current password.');
+      throw Error();
     }
   } catch (e) {
-    return res.status(500).json({ message: e });
+    return res
+      .status(500)
+      .json({ message: 'Original password does not match current password.' });
   }
 });
 
