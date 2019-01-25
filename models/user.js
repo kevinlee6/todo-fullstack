@@ -29,7 +29,7 @@ const update = async payload => {
   const hash = await bcrypt.hash(password, saltRounds);
   const user = await db(USERS)
     .where({ id })
-    .update({ password: hash });
+    .update({ password: hash, updated_at: 'now' });
   return user;
 };
 const destroy = async id => {
