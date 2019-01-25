@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import Username from './Username';
-import Password from './Password';
-import SignInSpecific from './SignInSpecific';
-import RegisterSpecific from './RegisterSpecific';
-import Buttons from './Buttons';
-import { COMMANDS } from '../../constants';
-import { validateRegister } from '../../helper';
-import { Form, message } from 'antd';
+import React, { Component } from "react";
+import axios from "axios";
+import Username from "./Username";
+import Password from "./Password";
+import SignInSpecific from "./SignInSpecific";
+import RegisterSpecific from "./RegisterSpecific";
+import Buttons from "./Buttons";
+import { COMMANDS } from "../../constants";
+import { validateRegister } from "../../helper";
+import { Form, message } from "antd";
 
 const { SIGN_IN, REGISTER } = COMMANDS;
 
@@ -16,22 +16,21 @@ class AuthForm extends Component {
     e.preventDefault();
     const { form } = this.props;
     const data = form.getFieldsValue();
-    form.validateFields('');
+    form.validateFields("");
     switch (command) {
       case REGISTER: {
         if (validateRegister(data)) {
-          console.log(data);
-          console.log('success');
           try {
-            await axios.post('/users', data);
-            return message.success('Signed in');
+            console.log(data);
+            await axios.post("/users", data);
+            return message.success("Signed in");
           } catch (err) {
-            return message.error('The server could not be reached.');
+            return message.error("The server could not be reached.");
           }
         } else {
           // temporary error message notification instead of in-form notification
           return message.error(
-            'There is an error with either email or password.'
+            "There is an error with either email or password."
           );
         }
       }
@@ -46,7 +45,7 @@ class AuthForm extends Component {
 
   handleConfirmFocus = (rule, val, cb) => {
     const { form } = this.props;
-    const original = form.getFieldValue('password');
+    const original = form.getFieldValue("password");
     if (val === original) {
       cb();
     }
@@ -54,9 +53,9 @@ class AuthForm extends Component {
 
   handleConfirmBlur = (rule, val, cb) => {
     const { form } = this.props;
-    const original = form.getFieldValue('password');
+    const original = form.getFieldValue("password");
     if (val !== original) {
-      return cb('The passwords do not match.');
+      return cb("The passwords do not match.");
     }
   };
 
@@ -94,4 +93,4 @@ class AuthForm extends Component {
   }
 }
 
-export default Form.create({ name: 'auth_form' })(AuthForm);
+export default Form.create({ name: "auth_form" })(AuthForm);
