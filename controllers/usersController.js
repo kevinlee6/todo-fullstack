@@ -1,5 +1,7 @@
 const router = require('express').Router();
 const User = require('../models/user.js');
+const bcrypt = require('bcrypt');
+const { validateRegister } = require('../helper.js');
 
 // all
 router.get('/', async (req, res) => {
@@ -7,7 +9,7 @@ router.get('/', async (req, res) => {
     const users = await User.getAll();
     return res.status(200).json({ users });
   } catch (e) {
-    return res.status(500).json(e);
+    return res.status(500).json({ message: 'Unable to get all users.' });
   }
 });
 
@@ -18,29 +20,44 @@ router.get('/:id', async (req, res) => {
     const user = await User.get(parseInt(id));
     return res.status(200).send({ user });
   } catch (e) {
-    return res.status(500).json(e);
+    return res
+      .status(500)
+      .json({ message: 'Could not find user with that id.' });
   }
 });
 
 // create
 router.post('/', async (req, res) => {
   try {
-    const { email, password } = req.query;
-    const user = await User.create({ email, password });
-    res.json(user);
+    if (validateRegister(req.query)) {
+      const { email, password } = req.query;
+      const user = await User.create({ email, password });
+      res.json({ user });
+    } else {
+      throw Error('Account creation failed.');
+    }
   } catch (e) {
-    return res.status(500).json(e);
+    return res.status(500).json({ message: e });
   }
 });
 
 // update
 router.patch('/:id', async (req, res) => {
   try {
-    const { id, password } = req.params;
-    const user = User.update({ id: parseInt(id), password });
-    return res.status(200).json(user);
+    const { id, password, newPassword } = req.params;
+    const user = await User.get(parseInt(id));
+    const isSameHash = await bcrypt.compare(password, user.password);
+    if (isSameHash) {
+      await User.update({
+        id: parseInt(id),
+        password: newPassword,
+      });
+      return res.status(200).json({ message: 'Password update successful.' });
+    } else {
+      throw Error('Original password does not match current password.');
+    }
   } catch (e) {
-    return res.status(500).json(e);
+    return res.status(500).json({ message: e });
   }
 });
 
