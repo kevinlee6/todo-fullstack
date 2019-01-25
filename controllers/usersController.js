@@ -44,7 +44,8 @@ router.post('/', async (req, res) => {
 // update
 router.patch('/:id', async (req, res) => {
   try {
-    const { id, password, newPassword } = req.params;
+    const { id } = req.params;
+    const { password, newPassword } = req.query;
     const user = await User.get(parseInt(id));
     const isSameHash = await bcrypt.compare(password, user.password);
     if (isSameHash) {
