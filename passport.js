@@ -1,9 +1,10 @@
+const User = require("./models/user");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
 passport.use(
-  new LocalStrategy(function(username, password, done) {
-    User.findOne({ username }, function(err, user) {
+  new LocalStrategy(function(email, password, done) {
+    User.get({ email }, function(err, user) {
       if (err) {
         return done(err);
       }

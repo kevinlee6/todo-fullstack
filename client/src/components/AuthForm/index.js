@@ -22,8 +22,8 @@ class AuthForm extends Component {
         if (validateRegister(data)) {
           try {
             console.log(data);
-            await axios.post("/users", data);
-            return message.success("Signed in");
+            await axios.post("/api/users", data);
+            return message.success("Successfully registered.");
           } catch (err) {
             return message.error("The server could not be reached.");
           }
@@ -35,7 +35,8 @@ class AuthForm extends Component {
         }
       }
       case SIGN_IN: {
-        break;
+        await axios.post("/signin", data);
+        return message.success("Signed in.");
       }
       default: {
         return;

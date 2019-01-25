@@ -17,14 +17,27 @@ const getAll = async () => {
   }
 };
 
-const get = async id => {
-  try {
-    return await db(USERS)
-      .where({ id })
-      .first();
-  } catch (err) {
-    console.log("Error: " + err.detail);
-    return err.detail;
+const get = async payload => {
+  const { id, email } = payload;
+  if (id) {
+    try {
+      return await db(USERS)
+        .where({ id })
+        .first();
+    } catch (err) {
+      console.log("Error: " + err.detail);
+      return err.detail;
+    }
+  }
+  if (email) {
+    try {
+      return await db(USERS)
+        .where({ email })
+        .first();
+    } catch (err) {
+      console.log("Error: " + err.detail);
+      return err.detail;
+    }
   }
 };
 
