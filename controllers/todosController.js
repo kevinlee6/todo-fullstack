@@ -1,19 +1,53 @@
-const { Router } = require('express');
-const router = Router();
+const router = require('express').Router();
+const Todo = require('../models/todo');
 
 // all
-router.get('/');
+router.get('/', async (req, res) => {
+  try {
+    const { user_id } = req.query;
+    const todos = await Todo.getAll(parseInt(user_id));
+    return res.status(200).json({ todos });
+  } catch (e) {
+    return res.status(500).json({ message: 'Unable to get all todos.' });
+  }
+});
 
 //get
-router.get('/:id');
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const todo = await Todo.get(parseInt(id));
+    return res.status(200).json({ todo });
+  } catch (e) {
+    return res
+      .status(500)
+      .json({ message: 'Could not find todo that with id.' });
+  }
+});
 
 // create
-router.post('/');
+router.post('/', async (req, res) => {
+  try {
+    const { user_id, content } = req.query;
+    const todo = await Todo.create({ user_id, content });
+    res.status(200).json({ todo });
+  } catch (e) {
+    return res.status(500).json({ message: 'Todo creation failed.' });
+  }
+});
 
 // update
-router.patch('/:id');
+router.patch('/:id', async (req, res) => {});
 
 // delete
-router.delete('/:id');
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const destroy = await Todo.destroy(parseInt(id));
+    return res.status(200).json(destroy);
+  } catch (e) {
+    return res.status(500).json({ message: 'Todo could not be deleted.' });
+  }
+});
 
 module.exports = router;
