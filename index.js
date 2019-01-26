@@ -4,6 +4,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const users = require("./routes/usersRoutes.js");
 const todos = require("./routes/todosRoutes.js");
+const auth = require("./routes/authRoutes");
 const passport = require("./passport");
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -18,7 +19,7 @@ app.use(passport.session());
 
 app.use("/api/users", users);
 app.use("/api/todos", todos);
-app.post("/signin", passport.authenticate("local"));
+app.use("/", auth);
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
