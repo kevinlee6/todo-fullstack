@@ -17,6 +17,8 @@ module.exports = {
   },
 
   // create
+  // will auto-sign in after creation
+  // generates jwt
   create: async (req, res) => {
     try {
       if (validateRegister(req.body)) {
