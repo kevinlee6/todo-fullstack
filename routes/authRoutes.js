@@ -12,6 +12,7 @@ router.post("/signin", (req, res) => {
       if (err) res.send(err);
     });
     const token = jwt.sign(user, process.env.SECRET);
+    req.universalCookies = token;
     const { id, email } = user;
     return res.json({ user: { id, email }, token });
   })(req, res);
