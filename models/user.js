@@ -48,7 +48,7 @@ const create = async payload => {
     return await db(USERS).insert({ email, password: hash });
   } catch (err) {
     console.log("Error: " + err.detail);
-    return err.detail;
+    return { error: err.detail };
   }
 };
 

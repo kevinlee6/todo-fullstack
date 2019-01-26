@@ -1,11 +1,10 @@
 require("dotenv").config();
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
-const Auth = require("../controllers/authController.js");
 const passport = require("../passport");
 
-router.post("/signin", (req, res, next) => {
-  passport.authenticate("local", { session: false }, (err, user, info) => {
+router.post("/signin", (req, res) => {
+  passport.authenticate("local", { session: false }, (err, user) => {
     if (err || !user) {
       return res.status(400).json({ message: "Unable to sign in.", user });
     }
@@ -13,7 +12,8 @@ router.post("/signin", (req, res, next) => {
       if (err) res.send(err);
     });
     const token = jwt.sign(user, process.env.SECRET);
-    return res.json({ user, token });
+    const { id, email } = user;
+    return res.json({ user: { id, email }, token });
   })(req, res);
 });
 
