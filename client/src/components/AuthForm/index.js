@@ -16,14 +16,19 @@ class AuthForm extends Component {
     e.preventDefault();
     const { form } = this.props;
     const data = form.getFieldsValue();
-    form.validateFields("");
     switch (command) {
       case REGISTER: {
         if (validateRegister(data)) {
           try {
-            console.log(data);
-            await axios.post("/api/users", data);
-            return message.success("Successfully registered.");
+            const register = await axios.post("/api/users", data);
+            const registerData = register.data;
+            const error = registerData.error;
+            // if (error) {
+            //   return message.error(error)
+            // }
+            return error
+              ? message.error(error)
+              : message.success("Successfully registered.");
           } catch (err) {
             return message.error("The server could not be reached.");
           }
@@ -35,7 +40,9 @@ class AuthForm extends Component {
         }
       }
       case SIGN_IN: {
-        await axios.post("/signin", data);
+        const signin = await axios.post("/signin", data);
+        const token = signin.data.token;
+        localStorage.setItem("token", token);
         return message.success("Signed in.");
       }
       default: {
