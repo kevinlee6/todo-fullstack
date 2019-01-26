@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Cookies } from "react-cookie";
+import { connect } from "react-redux";
 import Username from "./Username";
 import Password from "./Password";
 import SignInSpecific from "./SignInSpecific";
@@ -9,6 +10,7 @@ import Buttons from "./Buttons";
 import { COMMANDS } from "../../constants";
 import { validateRegister } from "../../helper";
 import { Form, message } from "antd";
+import { hideModal, signIn, signOut } from "../../redux/actions";
 import { history } from "../../redux/store";
 
 const { SIGN_IN, REGISTER } = COMMANDS;
@@ -16,7 +18,8 @@ const { SIGN_IN, REGISTER } = COMMANDS;
 class AuthForm extends Component {
   handleSubmit = async (e, command) => {
     e.preventDefault();
-    const { form } = this.props;
+    const cookies = new Cookies();
+    const { form, hideModal, signIn } = this.props;
     const data = form.getFieldsValue();
     switch (command) {
       case REGISTER: {
@@ -28,6 +31,7 @@ class AuthForm extends Component {
             if (error) {
               return message.error(error);
             }
+            hideModal();
             history.push("/");
             return message.success("Successfully registered.");
           } catch (err) {
@@ -41,10 +45,18 @@ class AuthForm extends Component {
         }
       }
       case SIGN_IN: {
-        const signin = await axios.post("/signin", data);
-        // const token = signin.data.token;
-        // localStorage.setItem("token", token);
-        return message.success("Signed in.");
+        try {
+          const signin = await axios.post("/signin", data);
+          const token = signin.data.token;
+          cookies.set("token", token);
+          hideModal();
+          signIn(token);
+          history.push("/");
+          return message.success("Signed in.");
+        } catch (err) {
+          const errorMessage = err.response.data.error;
+          return message.error(errorMessage);
+        }
       }
       default: {
         return;
@@ -102,4 +114,7 @@ class AuthForm extends Component {
   }
 }
 
-export default Form.create({ name: "auth_form" })(AuthForm);
+export default connect(
+  null,
+  { hideModal, signIn, signOut }
+)(Form.create({ name: "auth_form" })(AuthForm));
