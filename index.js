@@ -17,9 +17,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/api/users", users);
-app.use("/api/todos", todos);
 app.use("/", auth);
+// app.use("/api/users", passport.authenticate("jwt", { session: false }), users);
+app.use("/api/users", users);
+app.use("/api/todos", passport.authenticate("jwt", { session: false }), todos);
 
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);

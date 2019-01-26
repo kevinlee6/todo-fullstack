@@ -7,9 +7,10 @@ module.exports = new Strategy(
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
     secretOrKey: process.env.SECRET
   },
-  async (jwtPayload, cb) => {
+  async (payload, cb) => {
     try {
-      const user = await User.get(jwtPayload.id);
+      const { id } = payload;
+      const user = await User.get({ id: parseInt(id) });
       return cb(null, user);
     } catch (err) {
       return cb(err);

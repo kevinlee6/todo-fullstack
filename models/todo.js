@@ -1,6 +1,6 @@
-const db = require('../db');
+const db = require("../db");
 
-const TODOS = 'todos';
+const TODOS = "todos";
 
 const getAll = async user_id => {
   const allTodos = await db(TODOS).where({ user_id });
@@ -24,7 +24,7 @@ const update = async payload => {
   const todo = content
     ? await db(TODOS)
         .where({ id })
-        .update({ content, updated_at: 'now' })
+        .update({ content, updated_at: "now" })
     : [true, false].includes(completed)
     ? await db(TODOS)
         .where({ id })
