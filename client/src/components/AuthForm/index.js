@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Cookies } from "react-cookie";
 import Username from "./Username";
 import Password from "./Password";
 import SignInSpecific from "./SignInSpecific";
@@ -8,6 +9,7 @@ import Buttons from "./Buttons";
 import { COMMANDS } from "../../constants";
 import { validateRegister } from "../../helper";
 import { Form, message } from "antd";
+import { history } from "../../redux/store";
 
 const { SIGN_IN, REGISTER } = COMMANDS;
 
@@ -23,12 +25,11 @@ class AuthForm extends Component {
             const register = await axios.post("/api/users", data);
             const registerData = register.data;
             const error = registerData.error;
-            // if (error) {
-            //   return message.error(error)
-            // }
-            return error
-              ? message.error(error)
-              : message.success("Successfully registered.");
+            if (error) {
+              return message.error(error);
+            }
+            history.push("/");
+            return message.success("Successfully registered.");
           } catch (err) {
             return message.error("The server could not be reached.");
           }
@@ -41,8 +42,8 @@ class AuthForm extends Component {
       }
       case SIGN_IN: {
         const signin = await axios.post("/signin", data);
-        const token = signin.data.token;
-        localStorage.setItem("token", token);
+        // const token = signin.data.token;
+        // localStorage.setItem("token", token);
         return message.success("Signed in.");
       }
       default: {

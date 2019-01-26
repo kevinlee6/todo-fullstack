@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
+const cookiesMiddleware = require("universal-cookie-express");
 const cookieParser = require("cookie-parser");
 const users = require("./routes/usersRoutes.js");
 const todos = require("./routes/todosRoutes.js");
@@ -13,6 +14,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookiesMiddleware());
 
 app.use(passport.initialize());
 app.use(passport.session());

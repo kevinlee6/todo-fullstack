@@ -4,6 +4,7 @@ import "./index.css";
 import { ConnectedRouter } from "connected-react-router";
 import App from "./components/App";
 import { Provider } from "react-redux";
+import { CookiesProvider } from "react-cookie";
 import createStore, { history } from "./redux/store";
 
 // change global config
@@ -16,9 +17,11 @@ const store = createStore();
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
-      <App />
-    </ConnectedRouter>
+    <CookiesProvider>
+      <ConnectedRouter history={history}>
+        <App />
+      </ConnectedRouter>
+    </CookiesProvider>
   </Provider>,
   document.getElementById("root")
 );

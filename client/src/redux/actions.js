@@ -6,7 +6,9 @@ import {
   SET_FILTER,
   SHOW_MODAL,
   HIDE_MODAL,
-} from './actionTypes';
+  SIGN_IN,
+  SIGN_OUT
+} from "./actionTypes";
 
 let nextTodoId = 0;
 
@@ -14,33 +16,31 @@ export const addTodo = content => ({
   type: ADD_TODO,
   payload: {
     id: ++nextTodoId,
-    content,
-  },
+    content
+  }
 });
 
 export const deleteTodo = id => ({
   type: DELETE_TODO,
-  payload: { id },
+  payload: { id }
 });
 
 export const editTodo = (id, content) => ({
   type: EDIT_TODO,
   payload: {
     id,
-    content,
-  },
+    content
+  }
 });
 
 export const toggleTodo = id => ({
   type: TOGGLE_TODO,
-  payload: { id },
+  payload: { id }
 });
 
 export const setFilter = filter => ({
   type: SET_FILTER,
-  payload: {
-    filter,
-  },
+  payload: { filter }
 });
 
 // null as default, in case toggleModal will be expanded
@@ -49,10 +49,19 @@ export const showModal = (command, todo = null) => ({
   type: SHOW_MODAL,
   payload: {
     command,
-    todo,
-  },
+    todo
+  }
 });
 
 export const hideModal = () => ({
-  type: HIDE_MODAL,
+  type: HIDE_MODAL
+});
+
+export const signIn = token => ({
+  type: SIGN_IN,
+  payload: { token }
+});
+
+export const signOut = () => ({
+  type: SIGN_OUT
 });
