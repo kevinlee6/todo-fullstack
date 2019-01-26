@@ -1,19 +1,19 @@
 const router = require("express").Router();
-const todo = require("../controllers/todosController");
+const Todo = require("../controllers/todosController");
 
 // all
-router.get("/", (req, res) => todo.getAll(req, res));
+router.get("/", (req, res) => Todo.getAll(req, res));
 
 //get
-router.get("/:id", (req, res) => todo.get(req, res));
+router.get("/:id", (req, res) => Todo.get(req, res));
 
 // create
-router.post("/", (req, res) => todo.create(req, res));
+router.post("/", (req, res) => Todo.create(req, res));
 
 // update
-router.patch("/:id", (req, res) => todo.update(req, res));
+router.patch("/:id", (req, res) => Todo.update(req, res));
 
 // delete
-router.delete("/:id", (req, res) => todo.destroy(req, res));
+router.delete("/:id", (req, res) => Todo.destroy(req, res));
 
 module.exports = router;
