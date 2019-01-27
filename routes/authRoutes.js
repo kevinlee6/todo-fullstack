@@ -20,38 +20,4 @@ router.post("/signin", (req, res, next) => {
   })(req, res, next);
 });
 
-router.post("/verify-token", (req, res) => {
-  passport.authenticate("jwt", { session: false }, async (err, user) => {
-    if (err || !user) {
-      return res.json({ error: "Not valid jwt." });
-    }
-    // should just be object with user_id key
-    return res.json({ user });
-    // Give json formatted for redux store if valid jwt
-    // const token = req.headers.token;
-    // const todos = await Todo.getAll(parseInt(user.id));
-    // const allIds = todos.map(todo => todo.id);
-    // const byIds = todos.reduce((acc, todo) => {
-    //   const { content, completed, updated_at } = todo;
-    //   acc[todo.id] = {
-    //     content,
-    //     completed,
-    //     updated_at
-    //   };
-    //   return acc;
-    // }, {});
-    // const data = {
-    //   auth: {
-    //     isLoggedIn: true,
-    //     token
-    //   },
-    //   todos: {
-    //     allIds,
-    //     byIds
-    //   }
-    // };
-    return res.json(data);
-  })(req, res);
-});
-
 module.exports = router;
