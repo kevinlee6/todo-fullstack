@@ -1,5 +1,11 @@
 # Full-Stack Todo App
 
+## Features
+
+- Able to create account and sign in.
+- Able to create, read, update, and delete todos.
+- Actions sync with database, so data is persistent.
+
 ## Tech Stack (notable mentions)
 
 - React
@@ -9,7 +15,7 @@
   - React Router
   - Ant Design (UI Library)
   - styled components (CSS-in-JS)
-  - axios
+  - axios (fetch data from api)
   - React Cookies
 
 - Node/Express
@@ -23,7 +29,17 @@
 ## To-Do (no pun intended)
 
 - Use redis to manage sessions.
+- Use http-only cookies and remove React Cookie.
+- Improve landing page.
+- Change password is implemented on backend, but need to create views for it.
+- Fix log-in/register modals.
+  - Since it shares the same component as routed AuthForms, there are duplicate forms.
+- Add password reset option.
 - Implement more middleware to limit repeating code.
+  - Implement synchronous redux actions: request, success, failure.
+- Offline mode that will eventually sync to database.
+  - Currently all-or-nothing response. If database connection cannot be established, or there is error, then there will be no client-side changes.
+- Add loading screen while fetching from api.
 - Use morgan/winston/etc for logging.
 
 <!-- ## To run locally
