@@ -7,7 +7,8 @@ import {
   SHOW_MODAL,
   HIDE_MODAL,
   SIGN_IN,
-  SIGN_OUT
+  SIGN_OUT,
+  SYNC_TODOS
 } from "./actionTypes";
 
 let nextTodoId = 0;
@@ -64,4 +65,9 @@ export const signIn = token => ({
 
 export const signOut = () => ({
   type: SIGN_OUT
+});
+
+export const syncTodos = todos => ({
+  type: SYNC_TODOS,
+  payload: { todos }
 });

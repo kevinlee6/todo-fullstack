@@ -13,7 +13,6 @@ module.exports = new Strategy(
   },
   async (payload, cb) => {
     try {
-      console.log(payload);
       const { user_id } = payload;
       const user = await User.get({ id: parseInt(user_id) });
       return cb(null, user);
