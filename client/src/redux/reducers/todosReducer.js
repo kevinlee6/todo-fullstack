@@ -1,9 +1,15 @@
-import { ADD_TODO, DELETE_TODO, EDIT_TODO, TOGGLE_TODO } from '../actionTypes';
+import {
+  ADD_TODO,
+  DELETE_TODO,
+  EDIT_TODO,
+  TOGGLE_TODO,
+  SYNC_TODOS
+} from "../actionTypes";
 
 // allIds and byIds for normalization of data
 const initialState = {
   allIds: [],
-  byIds: {},
+  byIds: {}
 };
 
 export default (state = initialState, action) => {
@@ -11,6 +17,24 @@ export default (state = initialState, action) => {
   const allIds = state.allIds;
   const byIds = state.byIds;
   switch (action.type) {
+    case SYNC_TODOS: {
+      const { todos } = payload;
+      return {
+        ...state,
+        allIds: todos.map(todo => todo.id),
+        byIds: todos.reduce((acc, todo) => {
+          const { id, content, completed, created_at, updated_at } = todo;
+          acc[id] = {
+            content,
+            completed,
+            // may implement datetimes in future
+            created_at,
+            updated_at
+          };
+          return acc;
+        }, {})
+      };
+    }
     case ADD_TODO: {
       const { id, content } = payload;
       return {
@@ -20,9 +44,9 @@ export default (state = initialState, action) => {
           ...byIds,
           [id]: {
             content,
-            completed: false,
-          },
-        },
+            completed: false
+          }
+        }
       };
     }
     case DELETE_TODO: {
@@ -32,7 +56,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         allIds: allIds.filter(el => el !== id),
-        byIds: newByIds,
+        byIds: newByIds
       };
     }
     case EDIT_TODO: {
@@ -43,9 +67,9 @@ export default (state = initialState, action) => {
           ...byIds,
           [id]: {
             ...byIds[id],
-            content,
-          },
-        },
+            content
+          }
+        }
       };
     }
     case TOGGLE_TODO: {
@@ -57,9 +81,9 @@ export default (state = initialState, action) => {
           ...byIds,
           [id]: {
             ...todo,
-            completed: !todo.completed,
-          },
-        },
+            completed: !todo.completed
+          }
+        }
       };
     }
     default: {

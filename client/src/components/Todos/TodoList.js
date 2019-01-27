@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { toggleTodo } from "../../redux/actions";
+import { toggleTodo, syncTodos } from "../../redux/actions";
 import getByVisibility from "../../redux/selectors";
 import Todo from "./Todo";
 import { message, List, Empty as AntdEmpty } from "antd";
@@ -31,17 +31,18 @@ const info = () => message.info("Todo toggled");
 class TodoList extends Component {
   async componentDidMount() {
     // assumes user is logged on if they can see this component
-    const { token } = this.props;
+    const { token, syncTodos } = this.props;
     const decode = await verify(token, process.env.REACT_APP_SECRET);
     const { user_id } = decode;
-    const todos = await axios.get("/api/todos", {
+    const res = await axios.get("/api/todos", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
       },
       id: user_id
     });
-    console.log(todos);
+    const todos = res.data.todos;
+    syncTodos(todos);
   }
 
   render() {
@@ -77,5 +78,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { toggleTodo }
+  { toggleTodo, syncTodos }
 )(TodoList);
