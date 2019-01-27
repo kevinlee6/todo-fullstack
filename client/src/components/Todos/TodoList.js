@@ -6,6 +6,9 @@ import Todo from "./Todo";
 import { message, List, Empty as AntdEmpty } from "antd";
 import styled from "styled-components";
 
+// from express node_modules
+import { verify } from "jsonwebtoken";
+
 const Item = styled(List.Item)`
   padding: 12px !important;
   ${({ completed }) => completed === "true" && { backgroundColor: "lightgrey" }}
@@ -25,6 +28,13 @@ const Empty = styled(AntdEmpty)`
 const info = () => message.info("Todo toggled");
 
 class TodoList extends Component {
+  async ComponentDidMount() {
+    // assumes user is logged on if they can see this component
+    const { token } = this.props;
+    const decode = await verify(token, "");
+    console.log(decode);
+  }
+
   render() {
     const { todos, toggleTodo } = this.props;
     return todos && todos.length ? (
@@ -50,9 +60,10 @@ class TodoList extends Component {
 }
 
 const mapStateToProps = state => {
-  const { filter } = state;
+  const { filter, auth } = state;
   const todos = getByVisibility(state, filter);
-  return { todos };
+  const { token } = auth;
+  return { todos, token };
 };
 
 export default connect(

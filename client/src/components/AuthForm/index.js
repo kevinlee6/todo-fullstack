@@ -50,7 +50,9 @@ class AuthForm extends Component {
           console.log("hit");
           const signin = await axios.post("/signin", data);
           const token = signin.data.token;
-          cookies.set("token", token);
+          // 2 week expiration for cookie
+          const maxAge = 60 * 60 * 24 * 14;
+          cookies.set("token", token, { maxAge });
           hideModal();
           signIn(token);
           push("/");
