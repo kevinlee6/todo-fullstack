@@ -5,6 +5,7 @@ import { COMMANDS } from "../../constants";
 import { Button } from "antd";
 import styled from "styled-components";
 import { Cookies } from "react-cookie";
+import { Link } from "react-router-dom";
 
 const { SIGN_IN, REGISTER } = COMMANDS;
 
@@ -25,8 +26,14 @@ const AuthButtons = ({ showModal, signOut, isSignedIn }) => {
     <Button onClick={() => handleSignOut(signOut)}>Sign out</Button>
   ) : (
     <ButtonGroup>
-      <Button onClick={() => showModal(SIGN_IN)}>Sign In</Button>
-      <Button onClick={() => showModal(REGISTER)}>Register</Button>
+      <Button>
+        <Link to="/signin">Sign in</Link>
+      </Button>
+      <Button>
+        <Link to="/register">Register</Link>
+      </Button>
+      {/* <Button onClick={() => showModal(SIGN_IN)}>Sign In</Button>
+      <Button onClick={() => showModal(REGISTER)}>Register</Button> */}
     </ButtonGroup>
   );
 };
