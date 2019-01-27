@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { hideModal } from '../../redux/actions';
-import { COMMANDS } from '../../constants';
-import { urlFriendly } from '../../helper';
-import { Form, Button } from 'antd';
-import styled from 'styled-components';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { hideModal } from "../../redux/actions";
+import { COMMANDS } from "../../constants";
+import { urlFriendly } from "../../helper";
+import { Form, Button } from "antd";
+import styled from "styled-components";
 
 const { SIGN_IN } = COMMANDS;
 
@@ -19,15 +19,19 @@ const FormItem = styled(Form.Item)`
 
 const Buttons = ({ command, visible, hideModal }) => {
   const [first, second] =
-    command === SIGN_IN ? ['Sign In', 'Register'] : ['Register', 'Sign In'];
+    command === SIGN_IN ? ["Sign In", "Register"] : ["Register", "Sign In"];
   const closeModal = visible ? hideModal : null;
   return (
     <FormItem>
-      <WideButton htmlType="submit" type="primary" form="auth_form">
+      <WideButton
+        htmlType="submit"
+        type="primary"
+        form={(visible ? "modal_" : "") + "auth_form"}
+      >
         {first}
       </WideButton>
       <p>
-        or{' '}
+        or{" "}
         <Link onClick={closeModal} to={`/${urlFriendly(second)}`}>
           {second}
         </Link>

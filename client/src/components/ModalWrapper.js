@@ -1,12 +1,12 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { showModal, hideModal, editTodo, deleteTodo } from '../redux/actions';
-import { COMMANDS } from '../constants';
-import { message, Modal, Input, Button } from 'antd';
-import AuthForm from './AuthForm';
-import modalFooter from './hoc/modalFooter';
-import { titleCase } from '../helper';
-import styled from 'styled-components';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { showModal, hideModal, editTodo, deleteTodo } from "../redux/actions";
+import { COMMANDS } from "../constants";
+import { message, Modal, Input, Button } from "antd";
+import AuthForm from "./AuthForm";
+import modalFooter from "./hoc/modalFooter";
+import { titleCase } from "../helper";
+import styled from "styled-components";
 
 const { DELETE, EDIT, SIGN_IN, REGISTER } = COMMANDS;
 const todoCommands = [DELETE, EDIT];
@@ -24,7 +24,7 @@ class ModalWrapper extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userInput: '',
+      userInput: ""
     };
   }
 
@@ -49,7 +49,7 @@ class ModalWrapper extends Component {
           return this.error();
         }
         editTodo(todo.id, userInput);
-        this.setState({ userInput: '' });
+        this.setState({ userInput: "" });
         break;
       }
       default: {
@@ -76,7 +76,7 @@ class ModalWrapper extends Component {
   };
 
   error = () => {
-    message.error('Field cannot be empty.');
+    message.error("Field cannot be empty.");
   };
 
   renderBody = (command, todo = null) => {
@@ -120,7 +120,7 @@ class ModalWrapper extends Component {
   render() {
     const { command, todo, visible } = this.props;
     const handleOk = () => this.handleOk(command, todo);
-    const title = command ? `${titleCase(command)}` : 'Error: no command';
+    const title = command ? `${titleCase(command)}` : "Error: no command";
     const footer = todoCommands.includes(command)
       ? modalFooter(Button, command, handleOk, this.handleCancel)
       : null;

@@ -11,15 +11,16 @@ import { COMMANDS } from "../../constants";
 import { validateRegister } from "../../helper";
 import { Form, message } from "antd";
 import { hideModal, signIn, signOut } from "../../redux/actions";
-import { history } from "../../redux/store";
+import { push } from "connected-react-router";
 
 const { SIGN_IN, REGISTER } = COMMANDS;
 
 class AuthForm extends Component {
   handleSubmit = async (e, command) => {
     e.preventDefault();
+    console.log(command);
     const cookies = new Cookies();
-    const { form, hideModal, signIn } = this.props;
+    const { form, hideModal, signIn, push } = this.props;
     const data = form.getFieldsValue();
     switch (command) {
       case REGISTER: {
@@ -32,7 +33,7 @@ class AuthForm extends Component {
               return message.error(error);
             }
             hideModal();
-            history.push("/");
+            push("/");
             return message.success("Successfully registered.");
           } catch (err) {
             return message.error("The server could not be reached.");
@@ -46,12 +47,13 @@ class AuthForm extends Component {
       }
       case SIGN_IN: {
         try {
+          console.log("hit");
           const signin = await axios.post("/signin", data);
           const token = signin.data.token;
           cookies.set("token", token);
           hideModal();
           signIn(token);
-          history.push("/");
+          push("/");
           return message.success("Signed in.");
         } catch (err) {
           const errorMessage = err.response.data.error;
@@ -101,10 +103,14 @@ class AuthForm extends Component {
   };
 
   render() {
-    const { form, command } = this.props;
+    const { form, command, visible } = this.props;
     const { getFieldDecorator } = form;
+
     return (
-      <Form id="auth_form" onSubmit={e => this.handleSubmit(e, command)}>
+      <Form
+        id={(visible ? "modal_" : "") + "auth_form"}
+        onSubmit={e => this.handleSubmit(e, command)}
+      >
         <Username getFieldDecorator={getFieldDecorator} />
         <Password getFieldDecorator={getFieldDecorator} />
         {this.renderSpecific(command, getFieldDecorator)}
@@ -114,7 +120,13 @@ class AuthForm extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  const { modal } = state;
+  const { visible } = modal;
+  return { visible };
+};
+
 export default connect(
-  null,
-  { hideModal, signIn, signOut }
+  mapStateToProps,
+  { hideModal, signIn, signOut, push }
 )(Form.create({ name: "auth_form" })(AuthForm));
