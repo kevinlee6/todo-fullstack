@@ -6,17 +6,29 @@ const User = require("../models/user.js");
 const Todo = require("../models/todo.js");
 
 router.post("/signin", (req, res) => {
-  passport.authenticate("local", { session: false }, (err, user) => {
-    if (err || !user) {
-      return res.status(400).json({ error: "Unable to sign in.", user });
+  const token = passport.authenticate(
+    "local",
+    { session: false },
+    (err, user) => {
+      if (err || !user) {
+        res.status(400).json({ error: "Unable to sign in.", user });
+        return null;
+      }
+      req.login(user, { session: false }, err => {
+        if (err) res.send(err);
+        return null;
+      });
+      const token = jwt.sign({ user_id: user.id }, process.env.SECRET);
+      const { id } = user;
+      res.json({ user: { id }, token });
+      return token;
     }
-    req.login(user, { session: false }, err => {
-      if (err) res.send(err);
-    });
-    const token = jwt.sign({ user_id: user.id }, process.env.SECRET);
-    const { id } = user;
-    return res.json({ user: { id }, token });
-  })(req, res);
+  )(req, res);
+  // if (token) {
+  //   console.log(token);
+  //   const maxAge = 60 * 60 * 24 * 14;
+  //   res.cookie("token", token, { httpOnly: true, maxAge });
+  // }
 });
 
 router.post("/verify-token", (req, res) => {

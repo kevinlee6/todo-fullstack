@@ -18,7 +18,6 @@ const { SIGN_IN, REGISTER } = COMMANDS;
 class AuthForm extends Component {
   handleSubmit = async (e, command) => {
     e.preventDefault();
-    console.log(command);
     const cookies = new Cookies();
     const { form, hideModal, signIn, push } = this.props;
     const data = form.getFieldsValue();
