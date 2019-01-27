@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { urlFriendly } from '../../helper';
-import { Drawer, Icon as AntdIcon, List } from 'antd';
-import styled from 'styled-components';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { signOut } from "../../redux/actions";
+// import { urlFriendly } from "../../helper";
+import { Drawer, Icon as AntdIcon, List } from "antd";
+import styled from "styled-components";
 
 const Icon = styled(AntdIcon)`
   color: white;
@@ -14,23 +16,29 @@ const Icon = styled(AntdIcon)`
   }
 `;
 
-const listData = ['Home', 'Sign in', 'Register'];
-
 const StyledLink = styled(Link)`
   font-size: 1.6em;
 `;
 
-const DrawerList = ({ closeDrawer }) => (
-  <List
-    dataSource={listData}
-    renderItem={item => (
-      <List.Item>
-        <StyledLink onClick={closeDrawer} to={`/${urlFriendly(item)}`}>
-          {item}
-        </StyledLink>
-      </List.Item>
+const ListItem = ({ children, link = "/", handleClick }) => (
+  <List.Item>
+    <StyledLink to={link} onClick={handleClick}>
+      {children}
+    </StyledLink>
+  </List.Item>
+);
+
+const DrawerList = ({ isSignedIn, closeDrawer, signOut }) => (
+  <List onClick={closeDrawer}>
+    {isSignedIn ? (
+      <ListItem handleClick={signOut}>Sign out</ListItem>
+    ) : (
+      <Fragment>
+        <ListItem link="/signin">Sign in</ListItem>
+        <ListItem link="/register">Register</ListItem>
+      </Fragment>
     )}
-  />
+  </List>
 );
 
 class Sidebar extends Component {
@@ -58,11 +66,19 @@ class Sidebar extends Component {
           onClose={this.onClose}
           visible={this.state.visible}
         >
-          <DrawerList closeDrawer={this.onClose} />
+          <DrawerList {...this.props} closeDrawer={this.onClose} />
         </Drawer>
       </div>
     );
   }
 }
 
-export default Sidebar;
+const mapStateToProps = state => {
+  const isSignedIn = state.auth && state.auth.isSignedIn;
+  return { isSignedIn };
+};
+
+export default connect(
+  mapStateToProps,
+  { signOut }
+)(Sidebar);
