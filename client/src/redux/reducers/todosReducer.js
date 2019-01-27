@@ -39,13 +39,13 @@ export default (state = initialState, action) => {
       const { id, content } = payload;
       return {
         ...state,
-        allIds: [...allIds, id],
+        allIds: [id, ...allIds],
         byIds: {
-          ...byIds,
           [id]: {
             content,
             completed: false
-          }
+          },
+          ...byIds
         }
       };
     }
