@@ -86,7 +86,8 @@ class AuthForm extends Component {
   renderSpecific = (command, getFieldDecorator) => {
     switch (command) {
       case SIGN_IN: {
-        return <SignInSpecific getFieldDecorator={getFieldDecorator} />;
+        // return <SignInSpecific getFieldDecorator={getFieldDecorator} />;
+        return;
       }
       case REGISTER: {
         return (
