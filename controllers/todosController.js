@@ -47,10 +47,10 @@ module.exports = {
         const todo = await Todo.update({ id: parseInt(id), content });
         return res.status(200).json({ message: "Todo content updated." });
       }
-      if (completed) {
+      if ([true, false].includes(completed)) {
         const todo = await Todo.update({
           id: parseInt(id),
-          completed: completed.toLowerCase() === "true"
+          completed
         });
         return res.status(200).json({ message: "Toggled todo." });
       }
