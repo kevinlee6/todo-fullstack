@@ -39,8 +39,24 @@ class TodoList extends Component {
     syncTodos(todos);
   }
 
+  handleToggle = async (id, completed) => {
+    const { token, toggleTodo } = this.props;
+    await axios.patch(
+      `/api/todos/${id}`,
+      { completed: !completed },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    info();
+    toggleTodo(id);
+  };
+
   render() {
-    const { todos, toggleTodo } = this.props;
+    const { todos } = this.props;
     return todos && todos.length ? (
       <List
         size="large"
@@ -48,8 +64,7 @@ class TodoList extends Component {
         renderItem={todo => (
           <Item
             onClick={() => {
-              info();
-              toggleTodo(todo.id);
+              this.handleToggle(todo.id, todo.completed);
             }}
             completed={todo.completed.toString()}
           >

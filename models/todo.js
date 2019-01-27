@@ -33,18 +33,21 @@ const create = async payload => {
 };
 
 const update = async payload => {
-  const { id, content, completed } = payload;
-  const todo = content
-    ? await db(TODOS)
-        .where({ id })
-        .update({ content, updated_at: "now" })
-    : [true, false].includes(completed)
-    ? await db(TODOS)
-        .where({ id })
-        .update({ completed })
-    : null;
-
-  return todo;
+  try {
+    const { id, content, completed } = payload;
+    const todo = content
+      ? await db(TODOS)
+          .where({ id })
+          .update({ content, updated_at: "now" })
+      : [true, false].includes(completed)
+      ? await db(TODOS)
+          .where({ id })
+          .update({ completed })
+      : null;
+    return todo;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const destroy = async id => {
