@@ -3,20 +3,33 @@ const db = require("../db");
 const TODOS = "todos";
 
 const getAll = async user_id => {
-  const allTodos = await db(TODOS).where({ user_id });
-  return allTodos;
+  try {
+    return await db(TODOS).where({ user_id });
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const get = async id => {
-  const todo = await db(TODOS)
-    .where({ id })
-    .first();
-  return todo;
+  try {
+    return await db(TODOS)
+      .where({ id })
+      .first();
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const create = async payload => {
-  const { user_id, content } = payload;
-  return db(TODOS).insert({ user_id, content });
+  try {
+    const { user_id, content } = payload;
+    return await db(TODOS)
+      .insert({ user_id, content })
+      .returning("*")
+      .get(0);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const update = async payload => {

@@ -30,10 +30,9 @@ module.exports = {
   // create
   create: async (req, res) => {
     try {
-      const { user_id } = req.user.id;
-      const { content } = req.body;
+      const { user_id, content } = req.body.payload;
       const todo = await Todo.create({ user_id: parseInt(user_id), content });
-      res.status(200).json({ todo });
+      return res.status(200).json({ todo });
     } catch (e) {
       return res.status(500).json({ message: "Todo creation failed." });
     }

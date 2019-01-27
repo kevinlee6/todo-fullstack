@@ -13,12 +13,19 @@ import {
 
 let nextTodoId = 0;
 
-export const addTodo = content => ({
+// export const addTodo = content => ({
+//   type: ADD_TODO,
+//   payload: {
+//     id: ++nextTodoId,
+//     content
+//   }
+// });
+
+// payload is whole todo object, from db creation
+
+export const addTodo = payload => ({
   type: ADD_TODO,
-  payload: {
-    id: ++nextTodoId,
-    content
-  }
+  payload
 });
 
 export const deleteTodo = id => ({

@@ -1,35 +1,55 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { addTodo } from '../../redux/actions';
-import { message, Form, Input, Button } from 'antd';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { addTodo } from "../../redux/actions";
+import { decode } from "../../helper";
+import { message, Form, Input, Button } from "antd";
+import axios from "axios";
 
 class AddTodoForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userInput: '',
-    };
-  }
+  state = {
+    userInput: ""
+  };
 
   handleChange = e => {
     const userInput = e.target.value;
     this.setState({ userInput });
   };
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
+    // might want to wrap in a giant try catch
+    const { token } = this.props;
     e.preventDefault();
-    const userInput = this.state.userInput;
+    const content = this.state.userInput;
     // Reject empty inputs
-    if (!userInput || !userInput.length) {
+    if (!content || !content.length) {
       return this.error();
     }
-    this.props.addTodo(userInput);
-    message.success('Added todo');
-    this.setState({ userInput: '' });
+    // handle db
+    const decoded = await decode(token);
+    const { user_id } = decoded;
+    const res = await axios.post(
+      "/api/todos",
+      {
+        payload: {
+          user_id,
+          content
+        }
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+    const todo = res.data.todo;
+    this.props.addTodo(todo);
+    message.success("Added todo");
+    this.setState({ userInput: "" });
   };
 
   error = () => {
-    message.error('Todo content cannot be blank.');
+    message.error("Todo content cannot be blank.");
   };
 
   render() {
@@ -50,7 +70,12 @@ class AddTodoForm extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  const token = state.auth.token;
+  return { token };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   { addTodo }
 )(AddTodoForm);
