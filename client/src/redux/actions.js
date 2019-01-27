@@ -11,7 +11,7 @@ import {
   SYNC_TODOS
 } from "./actionTypes";
 
-let nextTodoId = 0;
+// let nextTodoId = 0;
 
 // export const addTodo = content => ({
 //   type: ADD_TODO,

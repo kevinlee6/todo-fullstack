@@ -34,7 +34,8 @@ class AuthForm extends Component {
             }
             hideModal();
             push("/");
-            return message.success("Successfully registered.");
+            message.success("Successfully registered.");
+            // temporary solution: let it go to sign in after register
           } catch (err) {
             return message.error("The server could not be reached.");
           }
@@ -47,7 +48,6 @@ class AuthForm extends Component {
       }
       case SIGN_IN: {
         try {
-          console.log("hit");
           const signin = await axios.post("/signin", data);
           const token = signin.data.token;
           // 2 week expiration for cookie
