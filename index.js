@@ -3,10 +3,10 @@ const express = require("express");
 const cors = require("cors");
 const cookiesMiddleware = require("universal-cookie-express");
 const cookieParser = require("cookie-parser");
+const passport = require("./passport");
 const users = require("./routes/usersRoutes.js");
 const todos = require("./routes/todosRoutes.js");
 const auth = require("./routes/authRoutes");
-const passport = require("./passport");
 const PORT = process.env.PORT || 3001;
 const app = express();
 

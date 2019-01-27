@@ -2,7 +2,11 @@ const router = require("express").Router();
 const Todo = require("../controllers/todosController");
 
 // all
-router.get("/", (req, res) => Todo.getAll(req, res));
+// router.get("/", (req, res) => Todo.getAll(req, res));
+router.get("/", (req, res) => {
+  console.log("hit");
+  return Todo.getAll(req, res);
+});
 
 //get
 router.get("/:id", (req, res) => Todo.get(req, res));

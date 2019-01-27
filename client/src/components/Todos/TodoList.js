@@ -5,6 +5,7 @@ import getByVisibility from "../../redux/selectors";
 import Todo from "./Todo";
 import { message, List, Empty as AntdEmpty } from "antd";
 import styled from "styled-components";
+import axios from "axios";
 
 // from express node_modules
 import { verify } from "jsonwebtoken";
@@ -28,11 +29,19 @@ const Empty = styled(AntdEmpty)`
 const info = () => message.info("Todo toggled");
 
 class TodoList extends Component {
-  async ComponentDidMount() {
+  async componentDidMount() {
     // assumes user is logged on if they can see this component
     const { token } = this.props;
-    const decode = await verify(token, "");
-    console.log(decode);
+    const decode = await verify(token, process.env.REACT_APP_SECRET);
+    const { user_id } = decode;
+    const todos = await axios.get("/api/todos", {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      id: user_id
+    });
+    console.log(todos);
   }
 
   render() {
