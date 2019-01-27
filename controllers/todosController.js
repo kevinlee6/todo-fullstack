@@ -6,7 +6,7 @@ module.exports = {
   // all for that specific user
   getAll: async (req, res) => {
     try {
-      const { user_id } = req.user.id;
+      const user_id = req.user && req.user.id;
       const todos = await Todo.getAll(parseInt(user_id));
       return res.status(200).json({ todos });
     } catch (e) {

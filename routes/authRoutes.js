@@ -24,6 +24,7 @@ router.post("/verify-token", (req, res) => {
     if (err || !user) {
       return res.json({ error: "Not valid jwt." });
     }
+    // should just be object with user_id key
     return res.json({ user });
     // Give json formatted for redux store if valid jwt
     // const token = req.headers.token;

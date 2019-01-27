@@ -23,7 +23,6 @@ class App extends Component {
     const cookies = new Cookies();
     const token = cookies.get("token");
     if (token) {
-      console.log(token);
       const res = await axios.post("/verify-token", null, {
         headers: {
           "Content-Type": "application/json",
@@ -36,7 +35,6 @@ class App extends Component {
       // if error, then something is wrong with token, so remove it
       // this way it won't keep calling db on refresh
       const error = data.error;
-      console.log(error);
       if (error) {
         cookies.remove("token");
         return;
