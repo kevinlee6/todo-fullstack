@@ -5,6 +5,7 @@ import { signOut } from "../../redux/actions";
 // import { urlFriendly } from "../../helper";
 import { Drawer, Icon as AntdIcon, List } from "antd";
 import styled from "styled-components";
+import { Cookies } from "react-cookie";
 
 const Icon = styled(AntdIcon)`
   color: white;
@@ -20,6 +21,12 @@ const StyledLink = styled(Link)`
   font-size: 1.6em;
 `;
 
+const handleSignOut = signOut => {
+  const cookies = new Cookies();
+  signOut();
+  cookies.remove("token");
+};
+
 const ListItem = ({ children, link = "/", handleClick }) => (
   <List.Item>
     <StyledLink to={link} onClick={handleClick}>
@@ -31,7 +38,7 @@ const ListItem = ({ children, link = "/", handleClick }) => (
 const DrawerList = ({ isSignedIn, closeDrawer, signOut }) => (
   <List onClick={closeDrawer}>
     {isSignedIn ? (
-      <ListItem handleClick={signOut}>Sign out</ListItem>
+      <ListItem handleClick={() => handleSignOut(signOut)}>Sign out</ListItem>
     ) : (
       <Fragment>
         <ListItem link="/signin">Sign in</ListItem>

@@ -11,7 +11,7 @@ import configureStore, { history } from "./redux/configureStore";
 import { message } from "antd";
 import axios from "axios";
 axios.defaults.baseURL = "http://localhost:3001/";
-message.config({ maxCount: 1, duration: 1 });
+message.config({ maxCount: 2, duration: 1 });
 
 const store = configureStore();
 

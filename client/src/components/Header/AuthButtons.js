@@ -4,6 +4,7 @@ import { showModal, signOut } from "../../redux/actions";
 import { COMMANDS } from "../../constants";
 import { Button } from "antd";
 import styled from "styled-components";
+import { Cookies } from "react-cookie";
 
 const { SIGN_IN, REGISTER } = COMMANDS;
 
@@ -13,9 +14,15 @@ const ButtonGroup = styled(Button.Group)`
   }
 `;
 
+const handleSignOut = signOut => {
+  const cookies = new Cookies();
+  signOut();
+  cookies.remove("token");
+};
+
 const AuthButtons = ({ showModal, signOut, isSignedIn }) => {
   return isSignedIn ? (
-    <Button onClick={signOut}>Sign out</Button>
+    <Button onClick={() => handleSignOut(signOut)}>Sign out</Button>
   ) : (
     <ButtonGroup>
       <Button onClick={() => showModal(SIGN_IN)}>Sign In</Button>
