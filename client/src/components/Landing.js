@@ -1,5 +1,7 @@
 import React from "react";
+import AuthForm from "../components/AuthForm";
+import { COMMANDS } from "../constants";
 
-export default () => {
-  <div />;
-};
+const { REGISTER } = COMMANDS;
+
+export default () => <AuthForm command={REGISTER} />;
