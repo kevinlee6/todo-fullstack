@@ -7,6 +7,7 @@ import AuthForm from "./AuthForm";
 import modalFooter from "./hoc/modalFooter";
 import { titleCase } from "../helper";
 import styled from "styled-components";
+import axios from "axios";
 
 const { DELETE, EDIT, SIGN_IN, REGISTER } = COMMANDS;
 const todoCommands = [DELETE, EDIT];
@@ -36,11 +37,18 @@ class ModalWrapper extends Component {
     }
   }
 
-  handleOk = (command, todo = null) => {
-    const { deleteTodo, editTodo, hideModal } = this.props;
+  handleOk = async (command, todo = null) => {
+    const { deleteTodo, editTodo, hideModal, token } = this.props;
     switch (command) {
       case DELETE: {
-        deleteTodo(todo.id);
+        const { id } = todo;
+        await axios.delete(`/api/todos/${id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        });
+        deleteTodo(id);
         break;
       }
       case EDIT: {
@@ -139,9 +147,10 @@ class ModalWrapper extends Component {
 }
 
 const mapStateToProps = state => {
-  const { modal } = state;
+  const { modal, auth } = state;
   const { command, todo, visible } = modal;
-  return { command, todo, visible };
+  const { token } = auth;
+  return { command, todo, visible, token };
 };
 
 export default connect(
