@@ -39,9 +39,9 @@ class ModalWrapper extends Component {
 
   handleOk = async (command, todo = null) => {
     const { deleteTodo, editTodo, hideModal, token } = this.props;
+    const id = todo && todo.id;
     switch (command) {
       case DELETE: {
-        const { id } = todo;
         await axios.delete(`/api/todos/${id}`, {
           headers: {
             "Content-Type": "application/json",
@@ -52,12 +52,22 @@ class ModalWrapper extends Component {
         break;
       }
       case EDIT: {
-        const userInput = this.state.userInput;
-        if (!userInput.length) {
+        const content = this.state.userInput;
+        if (!content.length) {
           return this.error();
         }
-        editTodo(todo.id, userInput);
-        this.setState({ userInput: "" });
+        await axios.patch(
+          `/api/todos/${id}`,
+          { content },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+        editTodo(id, content);
+        this.setState({ content: "" });
         break;
       }
       default: {
