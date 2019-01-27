@@ -7,9 +7,6 @@ import { message, List, Empty as AntdEmpty } from "antd";
 import styled from "styled-components";
 import axios from "axios";
 
-// from express node_modules
-import { verify } from "jsonwebtoken";
-
 const Item = styled(List.Item)`
   padding: 12px !important;
   ${({ completed }) => completed === "true" && { backgroundColor: "lightgrey" }}
@@ -32,14 +29,11 @@ class TodoList extends Component {
   async componentDidMount() {
     // assumes user is logged on if they can see this component
     const { token, syncTodos } = this.props;
-    const decode = await verify(token, process.env.REACT_APP_SECRET);
-    const { user_id } = decode;
     const res = await axios.get("/api/todos", {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`
-      },
-      id: user_id
+      }
     });
     const todos = res.data.todos;
     syncTodos(todos);
