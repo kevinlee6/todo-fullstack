@@ -9,6 +9,8 @@
   - React Router
   - Ant Design (UI Library)
   - styled components (CSS-in-JS)
+  - axios
+  - React Cookies
 
 - Node/Express
 
@@ -16,8 +18,15 @@
   - Knex (SQL query builder)
   - Passport (authentication middleware)
   - Bcrypt (hash passwords)
+  - jsonwebtoken
 
-## To run locally
+## To-Do (no pun intended)
+
+- Use redis to manage sessions.
+- Implement more middleware to limit repeating code.
+- Use morgan/winston/etc for logging.
+
+<!-- ## To run locally
 
 1. Prerequisites:
 
@@ -31,4 +40,4 @@
 cd ~/Downloads && git clone https://github.com/kevinlee6/todo-fullstack.git && cd todo-fullstack && npm install && ./client npm install
 ```
 
-4. I have not git-ignored my .env file for this project, as this project is for demonstration purposes. Replace values of DB, DB_NAME, DB_PASSWORD/DB_USER with your own postgres credentials as needed.
+4. I have not git-ignored my .env file for this project, as this project is for demonstration purposes. Replace values of DB, DB_NAME, DB_PASSWORD/DB_USER with your own postgres credentials as needed. -->
