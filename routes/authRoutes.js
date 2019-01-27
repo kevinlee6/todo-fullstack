@@ -5,30 +5,19 @@ const passport = require("../passport");
 const User = require("../models/user.js");
 const Todo = require("../models/todo.js");
 
-router.post("/signin", (req, res) => {
-  const token = passport.authenticate(
-    "local",
-    { session: false },
-    (err, user) => {
-      if (err || !user) {
-        res.status(400).json({ error: "Unable to sign in.", user });
-        return null;
-      }
-      req.login(user, { session: false }, err => {
-        if (err) res.send(err);
-        return null;
-      });
-      const token = jwt.sign({ user_id: user.id }, process.env.SECRET);
-      const { id } = user;
-      res.json({ user: { id }, token });
-      return token;
+router.post("/signin", (req, res, next) => {
+  passport.authenticate("local", { session: false }, (err, user) => {
+    if (err || !user) {
+      return res.status(400).json({ error: "Unable to sign in.", user });
     }
-  )(req, res);
-  // if (token) {
-  //   console.log(token);
-  //   const maxAge = 60 * 60 * 24 * 14;
-  //   res.cookie("token", token, { httpOnly: true, maxAge });
-  // }
+    req.login(user, { session: false }, err => {
+      if (err) res.send(err);
+    });
+    const token = jwt.sign({ user_id: user.id }, process.env.SECRET);
+    const { id } = user;
+    res.json({ user: { id }, token });
+    return token;
+  })(req, res, next);
 });
 
 router.post("/verify-token", (req, res) => {
