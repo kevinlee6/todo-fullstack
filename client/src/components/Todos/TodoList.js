@@ -35,7 +35,7 @@ class TodoList extends Component {
         Authorization: `Bearer ${token}`
       }
     });
-    const todos = res.data.todos;
+    const todos = res.data.todos.reverse();
     syncTodos(todos);
   }
 
