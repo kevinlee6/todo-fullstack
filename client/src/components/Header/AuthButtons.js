@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { showModal, signOut } from "../../redux/actions";
-import { COMMANDS } from "../../constants";
+// import { COMMANDS } from "../../constants";
 import { Button } from "antd";
 import styled from "styled-components";
 import { Cookies } from "react-cookie";
 import { Link } from "react-router-dom";
 
-const { SIGN_IN, REGISTER } = COMMANDS;
+// const { SIGN_IN, REGISTER } = COMMANDS;
 
 const ButtonGroup = styled(Button.Group)`
   @media (max-width: 576px) {

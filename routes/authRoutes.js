@@ -20,4 +20,14 @@ router.post("/signin", (req, res, next) => {
   })(req, res, next);
 });
 
+router.post("/verify-token", (req, res) => {
+  passport.authenticate("jwt", { session: false }, async (err, user) => {
+    if (err || !user) {
+      return res.json({ error: "Not valid jwt." });
+    }
+    // should just be object with user_id key
+    return res.json({ user });
+  })(req, res);
+});
+
 module.exports = router;
