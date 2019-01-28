@@ -24,6 +24,12 @@ app.use("/", auth);
 app.use("/api/users", users);
 app.use("/api/todos", passport.authenticate("jwt", { session: false }), todos);
 
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
+
 app.listen(PORT, () => {
   console.log(`App running on port ${PORT}`);
 });
