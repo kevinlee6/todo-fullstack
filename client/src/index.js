@@ -10,7 +10,7 @@ import configureStore, { history } from "./redux/configureStore";
 // change global config
 import { message } from "antd";
 import axios from "axios";
-axios.defaults.baseURL = process.env.DATABASE_URL || "http://localhost:3001/";
+axios.defaults.baseURL = process.env.baseURL || "http://localhost:3001/";
 message.config({ maxCount: 2, duration: 1 });
 
 const store = configureStore();
