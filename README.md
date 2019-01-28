@@ -1,4 +1,4 @@
-# Full-Stack Todo App
+# [Full-Stack Todo App](https://todo-node-react.herokuapp.com/)
 
 ## Features
 
@@ -26,7 +26,7 @@
   - Bcrypt (hash passwords)
   - jsonwebtoken
 
-## To-Do (no pun intended)
+<!-- ## To-Do (no pun intended)
 
 - Use redis to manage sessions.
 - Use http-only cookies and remove React Cookie.
@@ -40,7 +40,7 @@
 - Offline mode that will eventually sync to database.
   - Currently all-or-nothing response. If database connection cannot be established, or there is error, then there will be no client-side changes.
 - Add loading screen while fetching from api.
-- Use morgan/winston/etc for logging.
+- Use morgan/winston/etc for logging. -->
 
 <!-- ## To run locally
 
