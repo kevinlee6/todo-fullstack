@@ -37,6 +37,7 @@ export default (state = initialState, action) => {
     }
     case ADD_TODO: {
       const { id, content } = payload;
+      console.log(payload);
       return {
         ...state,
         allIds: [id, ...allIds],

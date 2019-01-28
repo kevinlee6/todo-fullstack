@@ -17,7 +17,7 @@ class AddTodoForm extends Component {
 
   handleSubmit = async e => {
     // might want to wrap in a giant try catch
-    const { token } = this.props;
+    const { token, addTodo } = this.props;
     e.preventDefault();
     const content = this.state.userInput;
     // Reject empty inputs
@@ -42,8 +42,8 @@ class AddTodoForm extends Component {
         }
       }
     );
-    const todo = res.data.todo;
-    this.props.addTodo(todo);
+    const todo = res.data && res.data.todo;
+    addTodo(todo);
     message.success("Added todo");
     this.setState({ userInput: "" });
   };
