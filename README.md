@@ -1,5 +1,7 @@
 # [Full-Stack Todo App](https://todo-node-react.herokuapp.com/)
 
+![Example todos page](/public/todos.png)
+
 ## Features
 
 - Able to create account and sign in.
